@@ -1,3 +1,9 @@
+## Resources and Credits
+Repo to learn how to implement passport: https://github.com/dikuw/mern-passport
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
