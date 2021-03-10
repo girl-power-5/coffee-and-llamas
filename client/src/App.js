@@ -1,7 +1,16 @@
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import API from "./utils/API";
 
 function App() {
+
+  useEffect(() => { 
+    API.getData()
+      .then(res => console.log('TEST', res))
+      .catch(err => console.log(err))
+   }, []);
+
   return (
     <div className="App">
       <header className="App-header">
