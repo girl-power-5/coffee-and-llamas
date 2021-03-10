@@ -32,6 +32,10 @@ mongoose.connect(process.env.MONGODB_URI),
     useFindAndModify: false
     };
 }
+
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello from server!" });
+});
   
 // Start the API server
 app.listen(PORT, function() {
