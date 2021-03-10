@@ -20,9 +20,13 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "client-passport": "^2.1.0",
+    "connect-mongo": "^4.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-sessions": "^1.0.6",
     "mongoose": "^5.11.19",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "react-passport": "^1.1.0"
   }
 }
