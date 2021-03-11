@@ -1,9 +1,10 @@
 
-
 import React from 'react';
+
 export default function Dashboard(props) {
   return (
     <React.Fragment>
+
     {props.isLoggedIn ? (
       <p>Welcome to the protected page {props.username}</p>
     ) : (
