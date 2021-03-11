@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+
 export default function Navbar(props) {
   return (
     <header className="navbar App-header" id="nav-container">
@@ -32,6 +34,7 @@ export default function Navbar(props) {
     </div>
     <div className="col-4 col-mr-auto">
       <h1 className="App-title">MERN Passport Example</h1>
+
     </div>
   </header>
   )

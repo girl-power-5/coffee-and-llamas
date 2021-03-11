@@ -6,9 +6,11 @@ import API from "./utils/API";
 import { UserContext } from './UserContext';
 import Register from './components/Register';
 import Login from './components/Login';
-import Navbar from './components/Navbar';
+import LoginSideBar from './components/LoginSideBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
+
+
 function App() {
   const [userStatus, setUserStatus] = useState({
                                         isLoggedIn: false,
@@ -78,7 +80,8 @@ function App() {
   return (
       <Router>
       <div className="App">
-        <Navbar isLoggedIn={userStatus.isLoggedIn} logout={logout} />
+        <LoginSideBar isLoggedIn={userStatus.isLoggedIn} logout={logout} />
+  
         <Route exact path="/" render={() => <Home isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
         <Route path="/login" render={() => (
           <Login 
