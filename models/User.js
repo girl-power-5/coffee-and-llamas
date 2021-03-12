@@ -13,24 +13,27 @@ const userSchema = new Schema({
 		unique: false, 
 		required: false 
 	},
-  //   safe_circle_info: [{
-  //   relationship: { type: String },
-  //   conact_number: { type: String }
-  // }],
-  //   medical: {
-  //   allergies: { type: Array },
-  //   blood_type: { type: String }, 
-  //   medications: {type: Array}, 
-  //   provider: {type: String}, 
-  //   insurance_card: {type: String}
-  // },
-  // person: {
-  //   firstName: { type: String },
-  //   lastName: { type: String }, 
-  //   email: {type: String, required: true}, 
-  //   phone_number: {type: String, required: true},
-  //   password: {type: String, required: true}
-  // }
+	user_info: {
+		first_name: { type: String },
+    last_name: { type: String }, 
+    email: { type: String }, 
+    phone_number: { type: String },
+	},
+	safe_circle_contacts: [
+		{
+			relationship: { type: String },
+			contact_first_name: { type: String },
+			contact_last_name: { type: String }, 
+			contact_phone_number: { type: String },
+		}
+	],
+    medical: {
+    allergies: { type: Array },
+    blood_type: { type: String }, 
+    medications: {type: Array}, 
+    provider: {type: String}, 
+    insurance_card: {type: String}
+  }
 });
 userSchema.methods = {
 	checkPassword: function(inputPassword) {

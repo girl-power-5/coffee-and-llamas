@@ -1,12 +1,15 @@
-import React from "react"
+import React from "react";
+import { useHistory } from "react-router-dom";
 
 export default function Register(props) {
+  let history = useHistory();
+
 	const handleChange = (event) => {
     props.updateUser(event.target.name, event.target.value );
   }
 	const handleSubmit = (event) => {
     event.preventDefault();
-    props.register();
+    props.register(history);
   }
   return (
     <div className="SignupForm">

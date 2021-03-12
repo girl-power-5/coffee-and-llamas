@@ -1,14 +1,21 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { 
+  Redirect, 
+  useHistory 
+  } from 'react-router-dom';
 
 export default function Login(props) {
+  let history = useHistory();
+
   const handleChange = (event) => {
     props.updateUser(event.target.name, event.target.value );
   }
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.login();
+    props.login(history);
   }
+
   if (props.redirectTo) {
     return <Redirect to={{ pathname: props.redirectTo }} />
   } else {
