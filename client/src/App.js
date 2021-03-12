@@ -9,11 +9,11 @@ import './App.css';
 import API from "./utils/API";
 import { UserContext } from './UserContext';
 import Register from './components/Register';
+import RegistrationForm from './components/RegistrationForm';
 import Login from './components/Login';
 import LoginSideBar from './components/LoginSideBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
-
 
 function App() {
   let history = useHistory();
@@ -59,7 +59,7 @@ function App() {
 		let response = await axios.post('/user/register', { username, password });
 		if (response.status === 200) {
 			setUserStatus({ isLoggedIn: true });
-      history.push("/dashboard");
+      history.push("/registrationform");
 		} else {
 			console.log('signup error');
 		}
@@ -116,6 +116,7 @@ function App() {
             register={register}
           />
         )} />
+        <Route path="/registrationform" render={() => <RegistrationForm isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
         <Route path="/dashboard" render={() => <Dashboard isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
       </div>
       </Router>
