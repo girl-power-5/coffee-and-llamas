@@ -7,6 +7,7 @@ export default function Register(props) {
 	const handleChange = (event) => {
     props.updateUser(event.target.name, event.target.value );
   }
+  
 	const handleSubmit = (event) => {
     event.preventDefault();
     props.register(history);

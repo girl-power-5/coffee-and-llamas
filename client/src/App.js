@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { 
   BrowserRouter as Router, 
-  Route,
-  useHistory 
+  Route
   } from 'react-router-dom';
 import './App.css';
-import API from "./utils/API";
 import { UserContext } from './UserContext';
 import Register from './components/Register';
 import RegistrationForm from './components/RegistrationForm';
@@ -16,22 +14,16 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 
 function App() {
-  let history = useHistory();
-
   const [userStatus, setUserStatus] = useState({
                                         isLoggedIn: false,
                                         username: null,
                                         password: null,
+                                        id: null,
                                       })
-
-  useEffect(() => { 
-    API.getData()
-      .then(res => console.log('TEST', res))
-      .catch(err => console.log(err))
-   }, []);
 
    useEffect(() => {
     getUser();
+    console.log(userStatus)
    }, [])
 
    const updateUser = (updatedProp, update) => {
@@ -43,12 +35,14 @@ function App() {
       if (response.data.user) {
         setUserStatus({
           isLoggedIn: true,
-          username: response.data.username
+          username: response.data.username,
+          id: response.data._id
         });
       } else {
         setUserStatus({
           isLoggedIn: false,
-          username: null
+          username: null,
+          id: null
         });
       }
     });
@@ -58,7 +52,7 @@ function App() {
 		const { username, password } = userStatus;
 		let response = await axios.post('/user/register', { username, password });
 		if (response.status === 200) {
-			setUserStatus({ isLoggedIn: true });
+			setUserStatus({...userStatus, isLoggedIn: true, username: response.data.username, id: response.data._id });
       history.push("/registrationform");
 		} else {
 			console.log('signup error');
@@ -71,7 +65,8 @@ function App() {
     if (response.status === 200) {
       setUserStatus({ 
         isLoggedIn: true, 
-        username: response.data.username 
+        username: response.data.username,
+        id: response.data._id 
       });
       history.push("/dashboard");
     } else {
@@ -85,7 +80,8 @@ function App() {
         setUserStatus({
           isLoggedIn: false,
           username: null,
-          password: null
+          password: null,
+          id: null
         });
         history.push("/");
       }
@@ -95,6 +91,8 @@ function App() {
   }
 
   return (
+    <UserContext.Provider value={userStatus}>
+
       <Router>
       <div className="App">
         <LoginSideBar isLoggedIn={userStatus.isLoggedIn} logout={logout} />
@@ -120,6 +118,7 @@ function App() {
         <Route path="/dashboard" render={() => <Dashboard isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
       </div>
       </Router>
+      </UserContext.Provider>
   );
 }
 

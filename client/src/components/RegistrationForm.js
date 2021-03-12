@@ -1,21 +1,28 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import API from '../utils/API'
 
-export default function RegistrationForm() {
+export default function RegistrationForm(props) {
+  const context = useContext(UserContext)
+
   const [newProfile, setNewProfile] = useState({
-    // firstname: "", 
-    // lastname: "",
-    // phone: "",
-    // squadName: "",
-    // squadPhone: ""
+    id: context.id
   })
+
   const handleInputChange = (evt) => {
     const value = evt.target.value;
     setNewProfile({...newProfile, [evt.target.name]: value})
-    console.log("newProfile", newProfile)
   }
+
+  const onRegistrationSubmit = (evt) => {
+    evt.preventDefault();
+    API.handleRegistration(newProfile)
+    .then(res => console.log('REG RES', res))
+    .catch(err => console.log(err));
+  }
+
   return (
     <div>
       <Form onChange={handleInputChange}>
@@ -62,9 +69,9 @@ export default function RegistrationForm() {
         <Form.Group controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group> */}
-        {/* <Button variant="primary" type="submit" onClick={handleRegistration}>
+        <Button variant="primary" type="submit" onClick={onRegistrationSubmit}>
           Register
-  </Button> */}
+      </Button>
       </Form>
     </div>
   )
