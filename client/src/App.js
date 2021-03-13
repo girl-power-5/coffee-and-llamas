@@ -14,6 +14,7 @@ import LoginSideBar from './components/LoginSideBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 
+
 function App() {
   let history = useHistory()
   const [userStatus, setUserStatus] = useState({
@@ -118,6 +119,7 @@ function App() {
         )} />
         <Route path="/registrationform" render={() => <RegistrationForm isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} history={history} />} />
         <Route path="/dashboard" render={() => <Dashboard isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
+        <Route path="/home" render={() => <Home isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
       </div>
       </Router>
       </UserContext.Provider>
