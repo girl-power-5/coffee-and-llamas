@@ -1,53 +1,41 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  TextField,
-  Button
-} from '@material-ui/core';
-
+import React, {useState, useContext} from 'react';
+import { UserContext } from '../UserContext';
 
 export default function NewEvent() {
+  const context = useContext(UserContext)
+  const [newEvent, setNewEvent] = useState({
+    id: context.id
+  })
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
-    },
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: 200,
-    },
-  }));
-
-  const classes = useStyles();
+  const handleInputChange = (evt) => {
+    const value = evt.target.value;
+    setNewEvent({...newEvent, [evt.target.name]: value})
+    console.log('newEvent', newEvent)
+  }
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="standard-basic" label="Standard" />
-      <TextField id="filled-basic" label="Filled" variant="filled" />
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-
-      <TextField
-        id="datetime-local"
-        label="Next appointment"
-        type="datetime-local"
-        defaultValue="2017-05-24T10:30"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <Button variant="contained">Default</Button>
+    <form>
+      <div class="form-group">
+        <label class="col-form-label" for="inputDefault">Date of the event:</label>
+        <input type="text" class="form-control" placeholder="Default input" name="eventDate" value={newEvent.eventDate} onChange={handleInputChange}/>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="inputDefault">Time of the event:</label>
+        <input type="text" class="form-control" placeholder="Default input" name="eventTime" value={newEvent.eventTime} onChange={handleInputChange}/>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="inputDefault">Event location:</label>
+        <input type="text" class="form-control" placeholder="Default input" name="eventLocation" value={newEvent.eventLocation} onChange={handleInputChange}/>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="inputDefault">Name of the person:</label>
+        <input type="text" class="form-control" placeholder="Default input" name="personName" value={newEvent.personName} onChange={handleInputChange}/>
+      <div class="form-group">
+        <label class="col-form-label" for="inputDefault">Link to social media:</label>
+        <input type="text" class="form-control" placeholder="Default input" name="socialMedia" value={newEvent.socialMedia} onChange={handleInputChange}/>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
     </form>
-
-
-
   )
 }
