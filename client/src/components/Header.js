@@ -16,7 +16,7 @@ export default function Header(props) {
 
     return (
 
-    <h1 className="header">Good {timeOfDay}, {props.username}</h1>
+    <h1 className="header">Good {timeOfDay}, {props.firstName}</h1>
          
     )
 }

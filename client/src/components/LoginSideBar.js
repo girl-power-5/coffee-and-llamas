@@ -20,8 +20,8 @@ export default function LoginSideBar(props) {
             {props.isLoggedIn ? (
                 <ListGroup defaultActiveKey="#link1">
                     <ListGroup.Item >
-                        <Link to="/dashboard" className="btn btn-link text-secondary">
-                            <span className="text-secondary">Dashboard</span>
+                        <Link to="/home" className="btn btn-link text-secondary">
+                            <span className="text-secondary">Home</span>
                         </Link>
                     </ListGroup.Item>
                     <ListGroup.Item >
