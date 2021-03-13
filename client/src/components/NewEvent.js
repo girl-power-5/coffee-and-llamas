@@ -36,7 +36,7 @@ export default function NewEvent() {
         <input type="text" class="form-control" placeholder="Default input" name="eventLocation" value={newEvent.eventLocation} onChange={handleInputChange}/>
       </div>
       <div class="form-group">
-        <label class="col-form-label" for="inputDefault">Name of the person:</label>
+        <label class="col-form-label" for="inputDefault">Meeting with:</label>
         <input type="text" class="form-control" placeholder="Default input" name="personName" value={newEvent.personName} onChange={handleInputChange}/>
       <div class="form-group">
         <label class="col-form-label" for="inputDefault">Link to social media:</label>

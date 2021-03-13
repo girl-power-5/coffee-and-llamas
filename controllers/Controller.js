@@ -24,8 +24,25 @@ module.exports = {
   }, 
   createNewEvent: function(req, res) {
     console.log('req', req.body)
-    // const newEventData = {
-      
-    // }
+    const newEventData = {
+      event_Date: req.body.eventDate,
+      event_Time: req.body.eventTime,
+      event_Location: req.body.eventLocation, 
+      person_Name: req.body.personName, 
+      social_Media: req.body.socialMedia,
+     }
+
+     db.User
+    .findOneAndUpdate({_id: req.body.id}, 
+      {
+        $push: {events: newEventData}
+      })
+      .then(dbUser => res.json({
+        dbUser, 
+        // first_name: req.body.firstName, 
+        // id: req.body.id
+      }))
+    .catch(err => res.status(422).json(err))
+
   }
 }
