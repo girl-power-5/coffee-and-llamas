@@ -15,7 +15,11 @@ module.exports = {
         phone_number: req.body.phoneNumber,
         $push: {safe_circle_contacts: safetySquadData}
       })
-    .then(dbUser => res.json(dbUser))
+      .then(dbUser => res.json({
+        ...dbUser, 
+        first_name: req.body.firstName, 
+        id: req.body.id
+      }))
     .catch(err => res.status(422).json(err))
   }
 }

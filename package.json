@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/girl-power-5/coffee-and-llamas#readme",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "client-passport": "^2.1.0",

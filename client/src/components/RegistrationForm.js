@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import API from '../utils/API'
 
 export default function RegistrationForm(props) {
-  const {history} = props;
+  let history = useHistory();
   const context = useContext(UserContext)
 
   const [newProfile, setNewProfile] = useState({
@@ -17,12 +17,14 @@ export default function RegistrationForm(props) {
     setNewProfile({...newProfile, [evt.target.name]: value})
   }
 
-  const onRegistrationSubmit = (evt) => {
+  const onSubmit = (evt) => {
     evt.preventDefault();
-    API.handleRegistration(newProfile)
-    .then(res => console.log('REG RES', res))
-    .catch(err => console.log(err));
-    // history.push('./dashboard')
+    props.onRegistrationSubmit(newProfile, history);
+    // evt.preventDefault();
+    // API.handleRegistration(newProfile)
+    // .then(res => console.log('REG RES', res))
+    // .catch(err => console.log(err));
+    // // history.push('./dashboard')
   }
 
   return (
@@ -71,7 +73,7 @@ export default function RegistrationForm(props) {
         <Form.Group controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group> */}
-        <Button variant="primary" type="submit" onClick={onRegistrationSubmit}>
+        <Button variant="primary" type="submit" onClick={onSubmit}>
           Register
       </Button>
       </Form>
