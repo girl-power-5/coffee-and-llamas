@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react';
 import { UserContext } from '../UserContext';
+import API from '../utils/API'
 
 export default function NewEvent() {
   const context = useContext(UserContext)
@@ -11,6 +12,13 @@ export default function NewEvent() {
     const value = evt.target.value;
     setNewEvent({...newEvent, [evt.target.name]: value})
     console.log('newEvent', newEvent)
+  }
+
+  const onEventSubmit = (evt) => {
+    evt.preventDefault();
+    API.createNewEvent(newEvent)
+    .then(res => console.log('res', res))
+    .catch(err => console.log(err))
   }
 
   return (
@@ -34,7 +42,7 @@ export default function NewEvent() {
         <label class="col-form-label" for="inputDefault">Link to social media:</label>
         <input type="text" class="form-control" placeholder="Default input" name="socialMedia" value={newEvent.socialMedia} onChange={handleInputChange}/>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" onClick={onEventSubmit}>Submit</button>
       </div>
     </form>
   )

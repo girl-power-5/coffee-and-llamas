@@ -21,5 +21,11 @@ module.exports = {
         id: req.body.id
       }))
     .catch(err => res.status(422).json(err))
+  }, 
+  createNewEvent: function(req, res) {
+    console.log('req', req.body)
+    // const newEventData = {
+      
+    // }
   }
 }
