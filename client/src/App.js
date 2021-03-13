@@ -14,6 +14,8 @@ import LoginSideBar from './components/LoginSideBar';
 import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import API from './utils/API';
+import 'bootswatch/dist/solar/bootstrap.min.css'; 
+
 
 function App() {
   let history = useHistory();
