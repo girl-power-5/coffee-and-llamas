@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const registrationController = require("../../controllers/registrationController");
+const Controller = require("../../controllers/Controller");
 
 // Matches with "/api/user/newregistration"
 router.route("/newregistration")
-  .post(registrationController.finishRegistration)
-
+  .post(Controller.finishRegistration)
+router.route("/newevent")
+  .post(Controller.createNewEvent)
 // // Matches with "/api/books/:id"
 // router
 //   .route("/:id")
