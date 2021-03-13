@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import API from '../utils/API'
 
 export default function RegistrationForm(props) {
+  const {history} = props;
   const context = useContext(UserContext)
 
   const [newProfile, setNewProfile] = useState({
@@ -21,6 +22,7 @@ export default function RegistrationForm(props) {
     API.handleRegistration(newProfile)
     .then(res => console.log('REG RES', res))
     .catch(err => console.log(err));
+    // history.push('./dashboard')
   }
 
   return (

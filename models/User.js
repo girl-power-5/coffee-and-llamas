@@ -2,6 +2,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 mongoose.promise = Promise;
+
+const safetySquadSchema = new Schema ({
+	member_first_name: {
+		type: String, 
+		unique: false, 
+		required: false 
+	},
+	member_phone_number: {
+		type: String, 
+		unique: false, 
+		required: false 
+	},
+	member_relationship: {
+		type: String, 
+		unique: false, 
+		required: false 
+	},
+})
+
 const userSchema = new Schema({
   username: {
 		type: String, 
@@ -13,20 +32,23 @@ const userSchema = new Schema({
 		unique: false, 
 		required: false 
 	},
-	user_info: {
-		first_name: { type: String },
-    last_name: { type: String }, 
-    email: { type: String }, 
-    phone_number: { type: String },
+	first_name: { type: String, 
+		unique: false, 
+		required: false 
 	},
-	safe_circle_contacts: [
-		{
-			relationship: { type: String },
-			contact_first_name: { type: String },
-			contact_last_name: { type: String }, 
-			contact_phone_number: { type: String },
-		}
-	],
+  last_name: { type: String, 
+		unique: false, 
+		required: false 
+	},
+  email: { type: String, 
+		unique: false, 
+		required: false 
+	},
+  phone_number: { type: String, 
+		unique: false, 
+		required: false 
+	},
+	safe_circle_contacts: [safetySquadSchema],
     medical: {
     allergies: { type: Array },
     blood_type: { type: String }, 
@@ -35,6 +57,7 @@ const userSchema = new Schema({
     insurance_card: {type: String}
   }
 });
+
 userSchema.methods = {
 	checkPassword: function(inputPassword) {
 		return bcrypt.compareSync(inputPassword, this.password);
@@ -43,6 +66,7 @@ userSchema.methods = {
 		return bcrypt.hashSync(plainTextPassword, 10);
 	}
 };
+
 userSchema.pre('save', function (next) {
 	if (!this.password) {
 		console.log('models/user.js =======NO PASSWORD PROVIDED=======');
@@ -53,5 +77,6 @@ userSchema.pre('save', function (next) {
 		next();
 	}
 })
+
 const userData = mongoose.model("userData", userSchema);
 module.exports = userData;

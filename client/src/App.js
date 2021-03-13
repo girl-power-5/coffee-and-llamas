@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { 
   BrowserRouter as Router, 
-  Route
+  Route,
+  useHistory
   } from 'react-router-dom';
 import './App.css';
 import { UserContext } from './UserContext';
@@ -14,6 +15,7 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 
 function App() {
+  let history = useHistory()
   const [userStatus, setUserStatus] = useState({
                                         isLoggedIn: false,
                                         username: null,
@@ -92,7 +94,7 @@ function App() {
 
   return (
     <UserContext.Provider value={userStatus}>
-
+      
       <Router>
       <div className="App">
         <LoginSideBar isLoggedIn={userStatus.isLoggedIn} logout={logout} />
@@ -114,7 +116,7 @@ function App() {
             register={register}
           />
         )} />
-        <Route path="/registrationform" render={() => <RegistrationForm isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
+        <Route path="/registrationform" render={() => <RegistrationForm isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} history={history} />} />
         <Route path="/dashboard" render={() => <Dashboard isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
       </div>
       </Router>
