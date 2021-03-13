@@ -13,15 +13,17 @@ import Login from './components/Login';
 import LoginSideBar from './components/LoginSideBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
-
+import API from './utils/API';
 
 function App() {
-  let history = useHistory()
+  let history = useHistory();
+
   const [userStatus, setUserStatus] = useState({
                                         isLoggedIn: false,
                                         username: null,
                                         password: null,
                                         id: null,
+                                        firstName: null
                                       })
 
    useEffect(() => {
@@ -62,6 +64,21 @@ function App() {
 		}
 	}
 
+  const onRegistrationSubmit = async (newProfile, history) => {
+    
+    API.handleRegistration(newProfile)
+    .then(response => 
+      setUserStatus({
+        ...userStatus, 
+        isLoggedIn: true, 
+        username: response.data.username, 
+        id: response.data.id,
+        firstName: response.data.first_name
+      }))
+    .catch(err => console.log(err));
+    history.push('./dashboard')
+  }
+
   const login = async (history) => {
     const { username, password } = userStatus;
     let response = await axios.post('/user/login/', { username, password });
@@ -94,8 +111,7 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={userStatus}>
-      
+    <UserContext.Provider value={userStatus}>     
       <Router>
       <div className="App">
         <LoginSideBar isLoggedIn={userStatus.isLoggedIn} logout={logout} />
@@ -117,9 +133,24 @@ function App() {
             register={register}
           />
         )} />
-        <Route path="/registrationform" render={() => <RegistrationForm isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} history={history} />} />
-        <Route path="/dashboard" render={() => <Dashboard isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
-        <Route path="/home" render={() => <Home isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
+        <Route path="/registrationform" render={() => 
+        <RegistrationForm 
+          isLoggedIn={userStatus.isLoggedIn} 
+          username={userStatus.username} 
+          history={history} 
+          onRegistrationSubmit={onRegistrationSubmit}
+          />} 
+        />
+        <Route path="/dashboard" render={() => <Dashboard 
+          userStatus={userStatus}
+          />} 
+        />
+        <Route path="/home" render={() => 
+          <Home 
+            isLoggedIn={userStatus.isLoggedIn} 
+            username={userStatus.username} 
+            />} 
+        />
       </div>
       </Router>
       </UserContext.Provider>
