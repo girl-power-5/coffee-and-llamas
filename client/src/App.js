@@ -11,8 +11,8 @@ import Register from './components/Register';
 import RegistrationForm from './components/RegistrationForm';
 import Login from './components/Login';
 import LoginSideBar from './components/LoginSideBar';
+import LandingPage from './components/LandingPage';
 import Home from './components/Home';
-import Dashboard from './components/Dashboard';
 import API from './utils/API';
 
 function App() {
@@ -76,7 +76,7 @@ function App() {
         firstName: response.data.first_name
       }))
     .catch(err => console.log(err));
-    history.push('./dashboard')
+    history.push('./home')
   }
 
   const login = async (history) => {
@@ -88,7 +88,7 @@ function App() {
         username: response.data.username,
         id: response.data._id 
       });
-      history.push("/dashboard");
+      history.push("/home");
     } else {
       console.log('login error');
     }
@@ -116,7 +116,7 @@ function App() {
       <div className="App">
         <LoginSideBar isLoggedIn={userStatus.isLoggedIn} logout={logout} />
   
-        <Route exact path="/" render={() => <Home isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
+        <Route exact path="/" render={() => <LandingPage isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
         <Route path="/login" render={() => (
           <Login 
             username={userStatus.username} 
@@ -141,12 +141,12 @@ function App() {
           onRegistrationSubmit={onRegistrationSubmit}
           />} 
         />
-        <Route path="/dashboard" render={() => <Dashboard 
+        <Route path="/home" render={() => <Home 
           userStatus={userStatus}
           />} 
         />
         <Route path="/home" render={() => 
-          <Home 
+          <LandingPage
             isLoggedIn={userStatus.isLoggedIn} 
             username={userStatus.username} 
             />} 
