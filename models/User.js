@@ -1,25 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
+const eventSchema = require ('./Event');
+const safetySquadSchema = require("./SafteySquadSchema");
 mongoose.promise = Promise;
-
-const safetySquadSchema = new Schema ({
-	member_first_name: {
-		type: String, 
-		unique: false, 
-		required: false 
-	},
-	member_phone_number: {
-		type: String, 
-		unique: false, 
-		required: false 
-	},
-	member_relationship: {
-		type: String, 
-		unique: false, 
-		required: false 
-	},
-})
 
 const userSchema = new Schema({
   username: {
@@ -55,7 +39,10 @@ const userSchema = new Schema({
     medications: {type: Array}, 
     provider: {type: String}, 
     insurance_card: {type: String}
-  }
+  },
+
+  events: [eventSchema]
+
 });
 
 userSchema.methods = {
