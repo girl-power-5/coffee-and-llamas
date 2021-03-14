@@ -12,6 +12,11 @@ const eventSchema = new Schema ({
 		unique: false, 
 		required: false 
 	},
+	event_DateTime: {
+		type: String, 
+		unique: false, 
+		required: false 
+	},
 	event_Location: {
 		type: String, 
 		unique: false, 
