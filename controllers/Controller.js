@@ -27,6 +27,7 @@ module.exports = {
     const newEventData = {
       event_Date: req.body.eventDate,
       event_Time: req.body.eventTime,
+      event_DateTime: req.body.datetime,
       event_Location: req.body.eventLocation, 
       person_Name: req.body.personName, 
       social_Media: req.body.socialMedia,
