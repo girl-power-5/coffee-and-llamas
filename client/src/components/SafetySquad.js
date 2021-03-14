@@ -22,7 +22,6 @@ export default function SafetySquad() {
                 <p>I'm loading</p>
             ) : (
                 <div>
-                    <p>done loading!!!</p>
                     <h2>Safety Squad</h2>
                     <ul>
                         {squad.data.map((member) => (<li>{member.member_first_name}</li>))}
@@ -32,6 +31,6 @@ export default function SafetySquad() {
                     </ul>
                 </div>
             )}
-            </div>
+        </div>
     )
 }

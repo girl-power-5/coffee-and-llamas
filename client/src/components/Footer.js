@@ -1,7 +1,8 @@
 import React from "react"
+import Navbar from 'react-bootstrap/Navbar'
 
 export default function Footer () {
     return (
-        <h3>Hello from the Footer made with love (c) 2021 by Girl Power 5: Coffee&Llamas</h3>
+        <Navbar fixed="bottom" style={{display: "flex", justifyContent: "center"}}><p>Made with love (c) 2021 by Girl Power 5: Coffee&Llamas</p></Navbar>
     )
 }

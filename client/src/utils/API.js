@@ -13,13 +13,8 @@ export default {
   getSafetySquad: function(userId) {
     return axios.get('/api/users/squad/' + userId)
   },
+  getEvents: function(userId) {
+    return axios.get('/api/users/events/' + userId)
+  },
 
-  // getUserData: function(userId) {
-  //   return axios.get('/api/users/data', {
-  //     data: {
-  //       userId
-  //     }
-  //   }
-  //   )
-  // } 
 }

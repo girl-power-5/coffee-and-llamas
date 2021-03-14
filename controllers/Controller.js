@@ -53,10 +53,16 @@ module.exports = {
     .catch(err => res.status(422).json(err));
   },
   getSquad: function(req, res) {
-    console.log('REQ BODY', req.params)
     db.User
     .findById({ _id: req.params.id })
     .then(dbUser => res.json(dbUser.safe_circle_contacts))
     .catch(err => res.status(422).json(err));
-  }
+  },
+  getEvents: function(req, res) {
+    console.log('REQ BODY', req.params)
+    db.User
+    .findById({ _id: req.params.id })
+    .then(dbUser => res.json(dbUser.events))
+    .catch(err => res.status(422).json(err));
+  },
 }

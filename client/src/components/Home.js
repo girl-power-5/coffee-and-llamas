@@ -5,10 +5,10 @@ import Footer from './Footer'
 import CurrentEvent from './CurrentEvent'
 import SafetySquad from './SafetySquad'
 import SafetySquadActivity from './SafetySquadActivity'
+import EventList from './EventList'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-import API from '../utils/API'
 
 export default function Home({ userStatus }) {
 
@@ -38,10 +38,16 @@ export default function Home({ userStatus }) {
                 <SafetySquadActivity />
               </Col>
             </Row>
+            <Row>
+              <Col sm={5}>
+                <EventList />
+              </Col>
+            </Row>
           </Container>
           <Route path="/safetysquad">
               <SafetySquad />
             </Route>
+            <Footer />
         </div>
       ) : (
         <p>Error: this page is for logged in users only!</p>

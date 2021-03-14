@@ -14,13 +14,7 @@ router.route("/:id")
 router.route("/squad/:id")
   .get(Controller.getSquad)
 
-
-
-// // Matches with "/api/books/:id"
-// router
-//   .route("/:id")
-//   .get(booksController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
+router.route("/events/:id")
+  .get(Controller.getEvents)
 
 module.exports = router;
