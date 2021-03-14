@@ -1,21 +1,9 @@
 import Footer from './Footer'
 
-export default function LandingPage(props) {
+export default function LandingPage() {
   return ( 
     <div>
-
-   <Footer />
-
+      <Footer />
     </div>
-    
   )
 }
-
-
-
-
-
-/*
-
-<p className="guestmessage">Welcome home {props.isLoggedIn ? props.username : 'guest. Try registering an account or logging in!'}</p>
-*/ 

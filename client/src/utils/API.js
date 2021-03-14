@@ -6,5 +6,20 @@ export default {
   },
   createNewEvent: function(eventData) {
     return axios.post('/api/users/newevent', eventData)
-  } 
+  },
+  getUserData: function(userId) {
+    return axios.get('/api/users/' + userId)
+  },
+  getSafetySquad: function(userId) {
+    return axios.get('/api/users/squad/' + userId)
+  },
+
+  // getUserData: function(userId) {
+  //   return axios.get('/api/users/data', {
+  //     data: {
+  //       userId
+  //     }
+  //   }
+  //   )
+  // } 
 }

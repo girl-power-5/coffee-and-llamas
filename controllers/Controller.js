@@ -23,7 +23,7 @@ module.exports = {
     .catch(err => res.status(422).json(err))
   }, 
   createNewEvent: function(req, res) {
-    console.log('req', req.body)
+    console.log('event req', req.body)
     const newEventData = {
       event_Date: req.body.eventDate,
       event_Time: req.body.eventTime,
@@ -44,5 +44,19 @@ module.exports = {
       }))
     .catch(err => res.status(422).json(err))
 
+  },
+  getUserData: function(req, res) {
+    console.log('REQ BODY', req.params)
+    db.User
+    .findById({ _id: req.params.id })
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.status(422).json(err));
+  },
+  getSquad: function(req, res) {
+    console.log('REQ BODY', req.params)
+    db.User
+    .findById({ _id: req.params.id })
+    .then(dbUser => res.json(dbUser.safe_circle_contacts))
+    .catch(err => res.status(422).json(err));
   }
 }
