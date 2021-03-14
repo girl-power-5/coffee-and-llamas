@@ -1,12 +1,21 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { UserContext } from '../UserContext';
 import API from '../utils/API'
+import { HistoryContext } from '../HistoryContext';
+import { useHistory } from 'react-router-dom';
 
 export default function NewEvent() {
-  const context = useContext(UserContext)
+  const context = useContext(UserContext);
+  const historyContext = useContext(HistoryContext);
+  
+  let history = useHistory();
+
   const [newEvent, setNewEvent] = useState({
-    id: context.id
+    id: context.id,
   })
+
+  const [value, onChange] = useState(new Date());
+
 
   const handleInputChange = (evt) => {
     const value = evt.target.value;
@@ -19,6 +28,7 @@ export default function NewEvent() {
     API.createNewEvent(newEvent)
     .then(res => console.log('res', res))
     .catch(err => console.log(err))
+    historyContext(history, "/home")
   }
 
   return (
@@ -44,6 +54,8 @@ export default function NewEvent() {
       </div>
       <button type="submit" class="btn btn-primary" onClick={onEventSubmit}>Submit</button>
       </div>
+      <div>
+    </div>
     </form>
   )
 }

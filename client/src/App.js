@@ -7,6 +7,8 @@ import {
   } from 'react-router-dom';
 import './App.css';
 import { UserContext } from './UserContext';
+import { HistoryContext } from './HistoryContext';
+import { DataContext } from './DataContext';
 import Register from './components/Register';
 import RegistrationForm from './components/RegistrationForm';
 import Login from './components/Login';
@@ -15,6 +17,7 @@ import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import API from './utils/API';
 import 'bootswatch/dist/solar/bootstrap.min.css'; 
+import SafetySquad from './components/SafetySquad';
 
 function App() {
   let history = useHistory();
@@ -27,10 +30,20 @@ function App() {
                                         firstName: null
                                       })
 
-   useEffect(() => {
+
+  const [userData, setUserData] = useState({})
+
+  useEffect(() => {
     getUser();
     console.log(userStatus)
-   }, [])
+  } , [])
+
+
+   useEffect( async () => {
+     API.getUserData(userStatus.id)
+       .then(res => setUserData(res.data))
+       .catch(err => console.log(err))
+   }, [userStatus])
 
    const updateUser = (updatedProp, update) => {
     setUserStatus({ ...userStatus, [updatedProp]: update });
@@ -42,13 +55,15 @@ function App() {
         setUserStatus({
           isLoggedIn: true,
           username: response.data.username,
-          id: response.data._id
+          id: response.data._id,
+          firstName: response.data.first_name
         });
       } else {
         setUserStatus({
           isLoggedIn: false,
           username: null,
-          id: null
+          id: null,
+          firstName: null
         });
       }
     });
@@ -66,9 +81,8 @@ function App() {
 	}
 
   const onRegistrationSubmit = async (newProfile, history) => {
-    
     API.handleRegistration(newProfile)
-    .then(response => 
+    .then(response => (
       setUserStatus({
         ...userStatus, 
         isLoggedIn: true, 
@@ -76,6 +90,7 @@ function App() {
         id: response.data.id,
         firstName: response.data.first_name
       }))
+      )
     .catch(err => console.log(err));
     history.push('./home')
   }
@@ -87,7 +102,8 @@ function App() {
       setUserStatus({ 
         isLoggedIn: true, 
         username: response.data.username,
-        id: response.data._id 
+        id: response.data._id,
+        firstName: response.data.first_name 
       });
       history.push("/home");
     } else {
@@ -102,7 +118,8 @@ function App() {
           isLoggedIn: false,
           username: null,
           password: null,
-          id: null
+          id: null,
+          firstName: null
         });
         history.push("/");
       }
@@ -111,13 +128,28 @@ function App() {
     });
   }
 
+  const updateHistory = (history, path) => {
+    history.push(path)
+  }
+
   return (
-    <UserContext.Provider value={userStatus}>     
+    <UserContext.Provider value={userStatus}> 
+    <HistoryContext.Provider value={updateHistory}>     
+    <DataContext.Provider value={userData}>     
       <Router>
       <div className="App">
-        <LoginSideBar isLoggedIn={userStatus.isLoggedIn} logout={logout} />
+        <LoginSideBar 
+          isLoggedIn={userStatus.isLoggedIn} 
+          logout={logout} 
+        />
+        
   
-        <Route exact path="/" render={() => <LandingPage isLoggedIn={userStatus.isLoggedIn} username={userStatus.username} />} />
+        <Route exact path="/" render={() => 
+          <LandingPage 
+            isLoggedIn={userStatus.isLoggedIn} 
+            username={userStatus.username} 
+          />} 
+        />
         <Route path="/login" render={() => (
           <Login 
             username={userStatus.username} 
@@ -135,25 +167,25 @@ function App() {
           />
         )} />
         <Route path="/registrationform" render={() => 
-        <RegistrationForm 
-          isLoggedIn={userStatus.isLoggedIn} 
-          username={userStatus.username} 
-          history={history} 
-          onRegistrationSubmit={onRegistrationSubmit}
-          />} 
-        />
-        <Route path="/home" render={() => <Home 
-          userStatus={userStatus}
+          <RegistrationForm 
+            isLoggedIn={userStatus.isLoggedIn} 
+            username={userStatus.username} 
+            history={history} 
+            onRegistrationSubmit={onRegistrationSubmit}
           />} 
         />
         <Route path="/home" render={() => 
-          <LandingPage
-            isLoggedIn={userStatus.isLoggedIn} 
-            username={userStatus.username} 
-            />} 
+          <Home 
+            userStatus={userStatus}
+            logout={logout}
+            getUser={getUser}
+            SafetySquad={SafetySquad}
+          />} 
         />
       </div>
       </Router>
+      </DataContext.Provider>
+      </HistoryContext.Provider>
       </UserContext.Provider>
   );
 }
