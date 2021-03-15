@@ -25,9 +25,6 @@ export default function SafetySquad() {
                     <h2>Safety Squad</h2>
                     <ul>
                         {squad.data.map((member) => (<li>{member.member_first_name}</li>))}
-                        <li>Safe Squad #1</li>
-                        <li>Safe Squad #2</li>
-                        <li>Safe Squad #3</li>
                     </ul>
                 </div>
             )}
