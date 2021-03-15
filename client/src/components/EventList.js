@@ -1,9 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../UserContext';
+import { HistoryContext } from '../HistoryContext';
+import { useHistory } from 'react-router-dom';
 import API from '../utils/API';
+import { Row, Button } from 'react-bootstrap';
 
 export default function EventList() {
+  let history = useHistory()
   const userContext = useContext(UserContext);
+  const historyContext = useContext(HistoryContext);
   
   const [events, setEvents] = useState({
     isLoading: true,
@@ -14,8 +19,12 @@ export default function EventList() {
     API.getEvents(userContext.id)
         .then(res => setEvents({...events, isLoading: false, data: res.data}) )
         .catch(err => console.log(err))
-}, [])
+  }, [])
 
+  const onEventClick = (e) => {
+    e.preventDefault();
+    historyContext(history, "/eventdetails/" + e.target.value)
+  }
 
   return (
     <div>
@@ -25,10 +34,7 @@ export default function EventList() {
             ) : (
                 <div>
                     <ul>
-                        {events.data.map((event) => (<li>Meeting with {event.person_Name} on {event.event_DateTime} at {event.event_Time}</li>))}
-                        <li>Safe Squad #1</li>
-                        <li>Safe Squad #2</li>
-                        <li>Safe Squad #3</li>
+                        {events.data.map((event) => (<Row><li>Meeting with {event.person_Name} on {event.event_DateTime} at {event.event_Time} <Button onClick={onEventClick} value={event._id}>View event details</Button></li></Row>))}
                     </ul>
                 </div>
             )}

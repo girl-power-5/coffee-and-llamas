@@ -2,8 +2,11 @@ import React from "react"
 import { Link, Route, useHistory } from 'react-router-dom';
 import CurrentEvent from './CurrentEvent';
 import SafetySquad from './SafetySquad';
+import AddMember from './AddMember';
 import '../App.css';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Col from 'react-bootstrap/Col';
+import Tab from 'react-bootstrap/Tab';
 import NewEvent from './NewEvent';
 ;
 export default function LoginSideBar(props) {
@@ -18,44 +21,59 @@ export default function LoginSideBar(props) {
 
         <div className="loginsidebar">
             {props.isLoggedIn ? (
-                <ListGroup defaultActiveKey="#link1">
-                    <ListGroup.Item >
-                        <Link to="/home" className="btn btn-link text-secondary">
-                            <span className="text-secondary">Home</span>
-                        </Link>
-                    </ListGroup.Item>
-                    <ListGroup.Item >
-                        <Link to="/newevent" className="btn btn-link text-secondary">
-                            <span className="text-secondary">Create Event</span>
-                        </Link>
-                    </ListGroup.Item>
-                    <ListGroup.Item >
-                        <Link to="/profile" className="btn btn-link text-secondary">
-                            <span className="text-secondary">Profile Information</span>
-                        </Link>
-                    </ListGroup.Item>
-                    <ListGroup.Item >
-                        <Link to="/safetysquad" className="btn btn-link text-secondary">
-                            <span className="text-secondary">Safety Squad</span>
-                        </Link>
-                    </ListGroup.Item>
-                    <ListGroup.Item >
-                        <Link to="#" className="btn btn-link text-secondary" onClick={handleSubmit}>
-                            <span className="text-secondary">Logout</span>
-                        </Link>
+                <div>
+                    <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+
+                        <Col
+                            lg={3}
+                        >
+                                <ListGroup defaultActiveKey="#link1">
+                                    <ListGroup.Item >
+                                        <Link to="/home" className="btn btn-link text-secondary">
+                                            <span className="text-secondary">Home</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item >
+                                        <Link to="/newevent" className="btn btn-link text-secondary">
+                                            <span className="text-secondary">Create Event</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item >
+                                        <Link to="/profile" className="btn btn-link text-secondary">
+                                            <span className="text-secondary">Profile Information</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item >
+                                        <Link to="/safetysquad" className="btn btn-link text-secondary">
+                                            <span className="text-secondary">Safety Squad</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item >
+                                        <Link to="/addmember" className="btn btn-link text-secondary">
+                                            <span className="text-secondary">Add Safety Squad Member</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item >
+                                        <Link to="#" className="btn btn-link text-secondary" onClick={handleSubmit}>
+                                            <span className="text-secondary">Logout</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                </ListGroup>
+                        </Col>
+
                         <Route>
                             <Route path="/newevent">
                                 <NewEvent />
                             </Route>
-                            <Route path="/medical">
-                                
-                            </Route>
                             <Route path="/safetysquad">
                                 <SafetySquad />
                             </Route>
+                            <Route path="/addmember">
+                                <AddMember />
+                            </Route>
                         </Route>
-                    </ListGroup.Item>
-                </ListGroup>
+                        </Tab.Container>
+                    </div>
 
 
             )
@@ -79,7 +97,7 @@ export default function LoginSideBar(props) {
 
                     </ListGroup>
                 )}
-        </div>
+                </div>
 
-    )
+            )
 }

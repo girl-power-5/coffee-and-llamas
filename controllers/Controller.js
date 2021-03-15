@@ -6,7 +6,6 @@ module.exports = {
       member_first_name: req.body.safetySquad,
       member_phone_number: req.body.safetyNumber
     }
-    console.log('BACKEND REG REQ', req.body)
     db.User
     .findOneAndUpdate({_id: req.body.id}, 
       {
@@ -22,8 +21,20 @@ module.exports = {
       }))
     .catch(err => res.status(422).json(err))
   }, 
+  addMember: function(req, res) {
+    const safetySquadData = {
+      member_first_name: req.body.memberName,
+      member_phone_number: req.body.memberNumber
+    }
+    db.User
+      .findOneAndUpdate({_id: req.body.id}, 
+        {
+          $push: {safe_circle_contacts: safetySquadData}
+        })
+        .then(dbUser => res.json(dbUser))
+      .catch(err => res.status(422).json(err))
+    }, 
   createNewEvent: function(req, res) {
-    console.log('event req', req.body)
     const newEventData = {
       event_Date: req.body.eventDate,
       event_Time: req.body.eventTime,
@@ -38,16 +49,11 @@ module.exports = {
       {
         $push: {events: newEventData}
       })
-      .then(dbUser => res.json({
-        dbUser, 
-        // first_name: req.body.firstName, 
-        // id: req.body.id
-      }))
+      .then(dbUser => res.json(dbUser))
     .catch(err => res.status(422).json(err))
 
   },
   getUserData: function(req, res) {
-    console.log('REQ BODY', req.params)
     db.User
     .findById({ _id: req.params.id })
     .then(dbUser => res.json(dbUser))
@@ -60,10 +66,15 @@ module.exports = {
     .catch(err => res.status(422).json(err));
   },
   getEvents: function(req, res) {
-    console.log('REQ BODY', req.params)
     db.User
     .findById({ _id: req.params.id })
     .then(dbUser => res.json(dbUser.events))
+    .catch(err => res.status(422).json(err));
+  },
+  getEventDetails: function(req, res) {
+    db.User
+    .find({}, {_id: req.params.userId, events: {$elemMatch: {_id: req.params.eventId}}})
+    .then(dbUser => res.json(dbUser))
     .catch(err => res.status(422).json(err));
   },
 }

@@ -15,6 +15,7 @@ import Login from './components/Login';
 import LoginSideBar from './components/LoginSideBar';
 import LandingPage from './components/LandingPage';
 import Home from './components/Home';
+import EventDetails from './components/EventDetails';
 import API from './utils/API';
 import 'bootswatch/dist/solar/bootstrap.min.css'; 
 import SafetySquad from './components/SafetySquad';
@@ -23,19 +24,18 @@ function App() {
   let history = useHistory();
 
   const [userStatus, setUserStatus] = useState({
-                                        isLoggedIn: false,
-                                        username: null,
-                                        password: null,
-                                        id: null,
-                                        firstName: null
-                                      })
+    isLoggedIn: false,
+    username: null,
+    password: null,
+    id: null,
+    firstName: null
+  })
 
 
   const [userData, setUserData] = useState({})
 
   useEffect(() => {
     getUser();
-    console.log(userStatus)
   } , [])
 
 
@@ -142,8 +142,6 @@ function App() {
           isLoggedIn={userStatus.isLoggedIn} 
           logout={logout} 
         />
-        
-  
         <Route exact path="/" render={() => 
           <LandingPage 
             isLoggedIn={userStatus.isLoggedIn} 
@@ -181,6 +179,9 @@ function App() {
             getUser={getUser}
             SafetySquad={SafetySquad}
           />} 
+        />
+        <Route path="/eventdetails/:eventId" render={() => 
+          <EventDetails />} 
         />
       </div>
       </Router>
