@@ -5,7 +5,6 @@
   "engines": {
     "node": "14.x"
   },
-  
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -37,6 +36,6 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "react-datetime-picker": "^3.2.0",
-    "react-passport": "^1.1.0"
+    
   }
 }
