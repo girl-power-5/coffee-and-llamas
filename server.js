@@ -8,6 +8,14 @@ const session = require('express-session');
 const passport = require('./passport');
 mongoose.Promise = global.Promise;
 const MongoStore = require('connect-mongo').default;
+require("dotenv").config();
+
+const config = require('./config');
+
+const client = require('twilio')(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
 
 // Define middleware here
 app.use(passport.initialize());
@@ -19,6 +27,25 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+app.post('/api/messages', (req, res) => {
+  console.log('TWILIO REQ', req.body)
+  res.header('Content-Type', 'application/json');
+  client.messages
+    .create({
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: req.body.to,
+      body: req.body.body
+    })
+    .then((message) => {
+      console.log('MESSAGE SID', message.sid);
+      res.send(JSON.stringify({ success: true }));
+    })
+    .catch(err => {
+      console.log(err);
+      res.send(JSON.stringify({ success: false }));
+    });
+});
 
 app.use('/user', passportRoutes);
 app.use(routes);
@@ -32,6 +59,8 @@ app.use(
       mongoUrl: 'mongodb://localhost/dbimok'    })
 	})
 )
+
+
 
 // Connect to the Mongo DB
 if (process.env.NODE_ENV === "production") {
