@@ -16,7 +16,7 @@ import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import EventDetails from './components/EventDetails';
 import API from './utils/API';
-import 'bootswatch/dist/solar/bootstrap.min.css'; 
+import 'bootswatch/dist/lux/bootstrap.min.css'; 
 import SafetySquad from './components/SafetySquad';
 import Navbar from './components/Navbar';
 
