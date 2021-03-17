@@ -12,13 +12,13 @@ import { DataContext } from './DataContext';
 import Register from './components/Register';
 import RegistrationForm from './components/RegistrationForm';
 import Login from './components/Login';
-import LoginSideBar from './components/LoginSideBar';
 import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import EventDetails from './components/EventDetails';
 import API from './utils/API';
 import 'bootswatch/dist/solar/bootstrap.min.css'; 
 import SafetySquad from './components/SafetySquad';
+import Navbar from './components/Navbar';
 
 function App() {
   let history = useHistory();
@@ -138,7 +138,7 @@ function App() {
     <DataContext.Provider value={userData}>     
       <Router>
       <div className="App">
-        <LoginSideBar 
+        <Navbar 
           isLoggedIn={userStatus.isLoggedIn} 
           logout={logout} 
         />
