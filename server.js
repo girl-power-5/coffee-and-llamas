@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 const session = require('express-session');
 const passport = require('./passport');
 mongoose.Promise = global.Promise;
-const MongoStore = require('connect-mongo').default;
+const MongoStore = require('connect-mongo');
 require("dotenv").config();
 
 const config = require('./config');

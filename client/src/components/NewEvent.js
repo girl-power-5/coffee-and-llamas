@@ -6,23 +6,21 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-
-
-
+import DateFnsUtils from '@date-io/date-fns';
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 export default function NewEvent() {
   const context = useContext(UserContext);
   const historyContext = useContext(HistoryContext);
-  const [date, setDate] = useState();
   const [rows, setRows] = useState([]);
   const [value, setValue] = useState(null);
-
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   let history = useHistory();
 
   const [newEvent, setNewEvent] = useState({
     id: context.id,
-    datetime: date,
+    datetime: selectedDate,
     eventLocation: null
   })
 
@@ -39,7 +37,6 @@ export default function NewEvent() {
     historyContext(history, "/home")
   }
 
-
   const useStyles = makeStyles((theme) => ({
     container: {
       display: 'flex',
@@ -52,13 +49,11 @@ export default function NewEvent() {
     },
   }));
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-
-
-    return (
-      <form>
-        <div class="form-group">
+  return (
+    <form>
+      <div class="form-group">
         <label class="col-form-label" for="inputDefault">Meeting with:</label>
         <input type="text" class="form-control" placeholder="Default input" name="personName" value={newEvent.personName} onChange={handleInputChange} />
         <div class="form-group">
@@ -67,7 +62,7 @@ export default function NewEvent() {
         </div>
       </div>
 
-        <form className={classes.container} noValidate>
+      {/* <form className={classes.container} noValidate>
           <TextField
             id="datetime-local"
             label="Event Date and Time"
@@ -77,33 +72,42 @@ export default function NewEvent() {
                shrink: true,
              }}
           />
-        </form>
+        </form> */}
 
-        <GooglePlacesAutocomplete
-          placeholder="Type in an address"
-          inputStyle={{
-            height: 40,
-            fontSize: 28
-          }}
-          suggestionsStyles={{
-            container: {
-              padding: 16,
-              background: "#efefef"
-            },
-            suggestion: {
-              background: "#eee",
-              cursor: "pointer"
-            },
-            suggestionActive: {
-              background: "#bbb"
-            }
-          }}
-          selectProps={{
-            value,
-            onChange: setValue,
-          }}
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <DateTimePicker
+          label="Date & time of event"
+          inputVariant="outlined"
+          value={selectedDate}
+          onChange={handleDateChange}
         />
-        <button type="submit" class="btn btn-primary" onClick={onEventSubmit}>Submit</button>
-      </form>
-    )
-  }
+      </MuiPickersUtilsProvider>
+
+      <GooglePlacesAutocomplete
+        placeholder="Type in an address"
+        inputStyle={{
+          height: 40,
+          fontSize: 28
+        }}
+        suggestionsStyles={{
+          container: {
+            padding: 16,
+            background: "#efefef"
+          },
+          suggestion: {
+            background: "#eee",
+            cursor: "pointer"
+          },
+          suggestionActive: {
+            background: "#bbb"
+          }
+        }}
+        selectProps={{
+          value,
+          onChange: setValue,
+        }}
+      />
+      <button type="submit" class="btn btn-primary" onClick={onEventSubmit}>Submit</button>
+    </form>
+  )
+}
