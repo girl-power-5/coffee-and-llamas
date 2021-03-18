@@ -14,7 +14,7 @@ export default function SafetySquad() {
         API.getSafetySquad(userContext.id)
             .then(res => setSquad({...squad, isLoading: false, data: res.data}) )
             .catch(err => console.log(err))
-    }, [])
+    }, [squad])
 
     return (
         <div>
