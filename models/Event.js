@@ -13,7 +13,7 @@ const eventSchema = new Schema ({
 		required: false 
 	},
 	event_DateTime: {
-		type: String, 
+		type: Object, 
 		unique: false, 
 		required: false 
 	},
