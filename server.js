@@ -9,6 +9,7 @@ const passport = require('./passport');
 mongoose.Promise = global.Promise;
 const MongoStore = require('connect-mongo');
 require("dotenv").config();
+const db = require('./models');
 
 const config = require('./config');
 
@@ -37,8 +38,8 @@ app.post('/api/messages', (req, res) => {
       to: req.body.to,
       body: req.body.body
     })
-    .then((message) => {
-      console.log('MESSAGE SID', message.sid);
+    .then((message) => { 
+      console.log('MESSAGE', message);
       res.send(JSON.stringify({ success: true }));
     })
     .catch(err => {

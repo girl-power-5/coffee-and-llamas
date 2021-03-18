@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../UserContext';
 import API from '../utils/API'
 import { HistoryContext } from '../HistoryContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
@@ -10,19 +10,35 @@ import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 export default function NewEvent() {
-  const context = useContext(UserContext);
+  const userContext = useContext(UserContext);
   const historyContext = useContext(HistoryContext);
   const [rows, setRows] = useState([]);
   const [value, setValue] = useState(null);
   const [selectedDate, handleDateChange] = useState(new Date());
 
   let history = useHistory();
+  let location = useLocation();
 
   const [newEvent, setNewEvent] = useState({
-    id: context.id,
+    id: userContext.id,
     datetime: selectedDate,
     eventLocation: null
   })
+  const [request, setRequest] = useState({
+    message: {
+      to: "",
+      body: ""
+    },
+    submitting: false,
+    error: false
+  })
+  const [squadNumbers, setSquadNumbers] = useState([])
+
+  useEffect(() => {
+    API.getSafetySquad(userContext.id)
+      .then(res => setSquadNumbers(res.data))
+      .catch(err => console.log(err))
+  }, [])
 
   const handleInputChange = (evt) => {
     const value = evt.target.value;
@@ -32,7 +48,55 @@ export default function NewEvent() {
   const onEventSubmit = (evt) => {
     evt.preventDefault();
     API.createNewEvent({ ...newEvent, eventLocation: value.value.place_id })
-      .then(res => console.log('res', res))
+      .then(res => {
+        const parsedRes = JSON.parse(res.config.data)
+        const eventLink = "https://imok-squad.herokuapp.com" + location.pathname + "/" + parsedRes.id
+      
+        squadNumbers.forEach((member) => {
+          const currentState = request.message;
+          currentState.to = member.member_phone_number;
+          currentState.body = "IMOK squad member " + userContext.firstName + " created an event.  See the details here: " + eventLink
+          setRequest({ message: currentState })
+    
+          setRequest({
+            ...request,
+            submitting: true
+          });
+          console.log('REQUEST TWILIO', request)
+          fetch('/api/messages', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request.message)
+          })
+            .then((res) => {
+              if (res.ok) {
+                alert("it worked!")
+    
+                console.log('RESPONSE', res.json())
+                setRequest({
+                  error: false,
+                  submitting: false,
+                  message: {
+                    to: '',
+                    body: ''
+                  }
+                });
+              } else {
+                setRequest({
+                  error: true,
+                  submitting: false
+                });
+              }
+            })
+            .catch(error => {
+              console.error("Error fetching data: ", error);
+            });
+        })
+        
+
+      })
       .catch(err => console.log(err))
     historyContext(history, "/home")
   }
