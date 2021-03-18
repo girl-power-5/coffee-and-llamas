@@ -77,4 +77,10 @@ module.exports = {
     .then(dbUser => res.json(dbUser))
     .catch(err => res.status(422).json(err));
   },
+  // saveAlert: function(req, res) {
+  //   db.User
+  //   .findOneAndUpdate({}, {_id: req.params.userId, events: {$elemMatch: {_id: req.params.eventId}}})
+  //   .then(dbUser => res.json(dbUser))
+  //   .catch(err => res.status(422).json(err));
+  // },
 }

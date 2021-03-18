@@ -21,5 +21,8 @@ export default {
   },
   getEventDetails: function(userId, eventId) {
     return axios.get('/api/users/eventDetails/' + userId + '/' + eventId)
+  },
+  saveAlert: function(userId, eventId) {
+    return axios.post('/api/users/eventDetails/' + userId + '/' + eventId)
   }
 }

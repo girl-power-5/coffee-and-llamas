@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const alertSchema = require ('./AlertHistory');
 
 const eventSchema = new Schema ({
 	event_Date: {
@@ -32,7 +33,7 @@ const eventSchema = new Schema ({
 		unique: false, 
 		required: false 
 	},
-    
+	alert_history: [alertSchema]
 })
 
 module.exports = eventSchema;
