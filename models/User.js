@@ -40,9 +40,7 @@ const userSchema = new Schema({
     provider: {type: String}, 
     insurance_card: {type: String}
   },
-
   events: [eventSchema]
-
 });
 
 userSchema.methods = {

@@ -7,6 +7,9 @@ export default {
   createNewEvent: function(eventData) {
     return axios.post('/api/users/newevent', eventData)
   },
+  saveAlert: function(eventId, alertData) {
+    return axios.post('/api/users/alerts/' + eventId, alertData)
+  },
   getUserData: function(userId) {
     return axios.get('/api/users/' + userId)
   },
@@ -22,7 +25,7 @@ export default {
   getEventDetails: function(userId, eventId) {
     return axios.get('/api/users/eventDetails/' + userId + '/' + eventId)
   },
-  saveAlert: function(userId, eventId) {
-    return axios.post('/api/users/eventDetails/' + userId + '/' + eventId)
+  getAlertHistory: function(eventId) {
+    return axios.get('/api/users/eventDetails/' + eventId)
   }
 }

@@ -51,7 +51,7 @@ export default function NewEvent() {
     API.createNewEvent({ ...newEvent, eventLocation: value.value.place_id })
       .then(res => {
         const parsedRes = JSON.parse(res.config.data)
-        const eventLink = "https://imok-squad.herokuapp.com" + location.pathname + "/" + parsedRes.id
+        const eventLink = "https://imok-squad.herokuapp.com/eventdetails/" + parsedRes.id
       
         squadNumbers.forEach((member) => {
           const currentState = request.message;

@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../utils/API';
 import { UserContext } from '../UserContext';
-import { Form, Col, Row, Button } from 'react-bootstrap';
+import { Form, Col, Row, Button, ListGroup } from 'react-bootstrap';
+import AlertHistory from './AlertHistory';
 
 export default function EventDetails() {
   const userContext = useContext(UserContext);
@@ -19,21 +20,27 @@ export default function EventDetails() {
     message: {
       to: "",
       body: "",
-      name: null
+      alertType: null
     },
     submitting: false,
     error: false,
   })
 
+  const [alertHistory, setAlertHistory] = useState([])
+
+  const [alertList, setAlertList] = useState([])
+
   const sendAlert = (e) => {
     e.preventDefault();
+    console.log(e.target.innerHtml)
 
     squadNumbers.forEach((member) => {
+      console.log("!!!!!", e.target.reactid)
       const currentState = request.message;
       const { value } = e.target;
       currentState.to = member.member_phone_number;
       currentState.body = value;
-      currentState.name = e.target.name
+      currentState.alertType = e.target.innerHTML
       setRequest({ message: currentState })
 
       setRequest({
@@ -51,13 +58,18 @@ export default function EventDetails() {
         .then((res) => {
           if (res.ok) {
             console.log('FRONTEND RES', res.json())
-        // I think this is where we will make a post request to save the alerts?? then we will need to do a useeffect on page load to query the alerts
+            // I think this is where we will make a post request to save the alerts?? then we will need to do a useeffect on page load to query the alerts
+            API.saveAlert(eventId, request.message)
+              .then((res) => console.log('ALERT', res))
+              .catch((err) => console.log(err))
+
             setRequest({
               error: false,
               submitting: false,
               message: {
                 to: '',
-                body: ''
+                body: '',
+                name: ''
               },
             });
           } else {
@@ -90,6 +102,14 @@ export default function EventDetails() {
       .catch(err => console.log(err))
   }, [])
 
+  useEffect(() => {
+    API.getAlertHistory(eventId)
+      .then(res => {
+        console.log(res.data[0].alert_list)
+        setAlertHistory(res.data[0].alert_list)
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <div>
@@ -99,49 +119,49 @@ export default function EventDetails() {
         <div>
           {userContext.isLoggedIn ? (
             <div>
-              <Button 
-                value={`${`Msg from IMOK squad member ${userContext.firstName}: Made it to the meeting spot`}`} 
+              <Button
+                value={`${`Msg from IMOK squad member ${userContext.firstName}: Made it to the meeting spot`}`}
                 onClick={sendAlert}
-                name="Arrived"
+                data-reactid="Arrived"
               >
-                  Arrived
+                Arrived
               </Button>
-              <Button 
-                value={`${`Msg from IMOK squad member ${userContext.firstName}: Bored but imok`}`} 
+              <Button
+                value={`${`Msg from IMOK squad member ${userContext.firstName}: Bored but imok`}`}
                 onClick={sendAlert}
                 name="Bored but imok"
               >
-                  Bored but imok
+                Bored but imok
               </Button>
-              <Button 
-                value={`${`Msg from IMOK squad member ${userContext.firstName}: Having a good time, signing off!`}`} 
+              <Button
+                value={`${`Msg from IMOK squad member ${userContext.firstName}: Having a good time, signing off!`}`}
                 onClick={sendAlert}
                 name="Having a good time"
               >
                 Having a good time
               </Button>
-              <Button 
-                value={`${`Msg from IMOK squad member ${userContext.firstName}: Feeling uncomfortable, be on standby`}`} 
+              <Button
+                value={`${`Msg from IMOK squad member ${userContext.firstName}: Feeling uncomfortable, be on standby`}`}
                 onClick={sendAlert}
                 name="Be on standby"
-                >
-                  Be on standby
+              >
+                Be on standby
               </Button>
-              <Button 
-                value={`${`Msg from IMOK squad member ${userContext.firstName}: SOS feel unsafe`}`} 
+              <Button
+                value={`${`Msg from IMOK squad member ${userContext.firstName}: SOS feel unsafe`}`}
                 onClick={sendAlert}
                 name="SOS"
               >
                 SOS
               </Button>
-              <Button 
-                value={`${`Msg from IMOK squad member ${userContext.firstName}: "Made it home/somewhere, am safe for the night`}`} 
+              <Button
+                value={`${`Msg from IMOK squad member ${userContext.firstName}: "Made it home/somewhere, am safe for the night`}`}
                 onClick={sendAlert}
-                >
-                  Safe for the night
+              >
+                Safe for the night
               </Button>
-              <Button 
-                value={`${`Msg from IMOK squad member ${userContext.firstName}: "Morning after, things are still good`}`} 
+              <Button
+                value={`${`Msg from IMOK squad member ${userContext.firstName}: "Morning after, things are still good`}`}
                 onClick={sendAlert}
                 name="Morning after..."
               >
@@ -149,7 +169,7 @@ export default function EventDetails() {
               </Button>
               <h3>Meeting with: {eventDetails.data.person_Name}</h3>
               <h3>Date: {new Date(eventDetails.data.event_DateTime).toDateString()}</h3>
-              <h3>Time: {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(0,4)} {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(8,11)}</h3>
+              <h3>Time: {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(0, 4)} {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(8, 11)}</h3>
               <iframe
                 title="eventLocation"
                 width="600"
@@ -158,6 +178,7 @@ export default function EventDetails() {
                 allowfullscreen
                 src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAXVPS3WbHTDTRT1GM8NGIuDjbKSfS2sU4&q=place_id:${eventDetails.data.event_Location}`}>
               </iframe>
+                <AlertHistory eventId={eventId} />
             </div>
           )
             : (
