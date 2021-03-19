@@ -119,10 +119,10 @@ export default function NewEvent() {
     <form>
       <div class="form-group">
         <label class="col-form-label" for="inputDefault">Meeting with:</label>
-        <input type="text" class="form-control" placeholder="Default input" name="personName" value={newEvent.personName} onChange={handleInputChange} />
+        <input type="text" class="form-control" placeholder="Name" name="personName" value={newEvent.personName} onChange={handleInputChange} />
         <div class="form-group">
-          <label class="col-form-label" for="inputDefault">Link to social media:</label>
-          <input type="text" class="form-control" placeholder="Default input" name="socialMedia" value={newEvent.socialMedia} onChange={handleInputChange} />
+          <label class="col-form-label" for="inputDefault">Link to Social Media:</label>
+          <input type="text" class="form-control" placeholder="Link" name="socialMedia" value={newEvent.socialMedia} onChange={handleInputChange} />
         </div>
       </div>
 
@@ -140,7 +140,7 @@ export default function NewEvent() {
 
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DateTimePicker
-          label="Date & time of event"
+          label="Date and Time of Event"
           inputVariant="outlined"
           value={selectedDate}
           onChange={handleDateChange}
@@ -148,7 +148,7 @@ export default function NewEvent() {
       </MuiPickersUtilsProvider>
 
       <GooglePlacesAutocomplete
-        placeholder="Type in an address"
+        placeholder="Enter an address"
         inputStyle={{
           height: 40,
           fontSize: 28
