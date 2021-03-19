@@ -64,7 +64,10 @@ app.use(routes);
 
 const clientP = mongoose.connect(
   process.env.MONGODB_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true }
+  { useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useCreateIndex: true, 
+    useFindAndModify: false }
 ).then(m => m.connection.getClient())
 
 app.use(session({
@@ -76,7 +79,12 @@ app.use(session({
     dbName: "dbimok",
     stringify: false,
     autoRemove: 'interval',
-    autoRemoveInterval: 1
+    autoRemoveInterval: 1, 
+    cookie: {
+      sameSite: false,
+      secure: false,
+      httpOnly: true
+  }
   })
 }));
 
