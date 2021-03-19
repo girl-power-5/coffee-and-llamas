@@ -4,7 +4,6 @@ import Header from './Header'
 import Footer from './Footer'
 import CurrentEvent from './CurrentEvent'
 import SafetySquad from './SafetySquad'
-import SafetySquadActivity from './SafetySquadActivity'
 import EventList from './EventList'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
@@ -33,9 +32,6 @@ export default function Home({ userStatus }) {
             <Row>
               <Col sm={5}>
                 <SafetySquad />
-              </Col>
-              <Col sm={5}>
-                <SafetySquadActivity />
               </Col>
             </Row>
             <Row>
