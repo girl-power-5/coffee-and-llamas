@@ -149,7 +149,7 @@ export default function EventDetails() {
               </Button>
               <h3>Meeting with: {eventDetails.data.person_Name}</h3>
               <h3>Date: {new Date(eventDetails.data.event_DateTime).toDateString()}</h3>
-              <h3>Time: {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(0,5)}{new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(8,11)}</h3>
+              <h3>Time: {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(0,4)} {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(8,11)}</h3>
               <iframe
                 title="eventLocation"
                 width="600"

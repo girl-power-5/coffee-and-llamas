@@ -35,7 +35,7 @@ export default function EventList() {
                 <div>
                     <ul>
                         {events.data.map((event) => (<Row><li>
-                          Meeting with: {event.person_Name} Date: {new Date(event.event_DateTime).toDateString()}Time: {new Date(event.event_DateTime).toLocaleTimeString().slice(0,5)}{new Date(event.event_DateTime).toLocaleTimeString().slice(8,11)}
+                          Meeting with: {event.person_Name} Date: {new Date(event.event_DateTime).toDateString()} Time: {new Date(event.event_DateTime).toLocaleTimeString().slice(0,4)} {new Date(event.event_DateTime).toLocaleTimeString().slice(8,11)}
                         
                         
                         

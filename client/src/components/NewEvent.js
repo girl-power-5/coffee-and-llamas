@@ -4,7 +4,6 @@ import API from '../utils/API'
 import { HistoryContext } from '../HistoryContext';
 import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -12,16 +11,18 @@ import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 export default function NewEvent() {
   const userContext = useContext(UserContext);
   const historyContext = useContext(HistoryContext);
-  const [rows, setRows] = useState([]);
   const [value, setValue] = useState(null);
-  const [selectedDate, handleDateChange] = useState(new Date());
 
   let history = useHistory();
   let location = useLocation();
 
+  const onDateSelect = (date) => {
+    setNewEvent({...newEvent, datetime: date})
+  }
+
   const [newEvent, setNewEvent] = useState({
     id: userContext.id,
-    datetime: selectedDate,
+    datetime: new Date(),
     eventLocation: null
   })
   const [request, setRequest] = useState({
@@ -125,25 +126,12 @@ export default function NewEvent() {
           <input type="text" class="form-control" placeholder="Link" name="socialMedia" value={newEvent.socialMedia} onChange={handleInputChange} />
         </div>
       </div>
-
-      {/* <form className={classes.container} noValidate>
-          <TextField
-            id="datetime-local"
-            label="Event Date and Time"
-            type="datetime-local"
-            className={classes.textField}
-             InputLabelProps={{
-               shrink: true,
-             }}
-          />
-        </form> */}
-
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DateTimePicker
           label="Date and Time of Event"
           inputVariant="outlined"
-          value={selectedDate}
-          onChange={handleDateChange}
+          value={newEvent.datetime}
+          onChange={onDateSelect}
         />
       </MuiPickersUtilsProvider>
 
