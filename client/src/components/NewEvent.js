@@ -72,7 +72,7 @@ export default function NewEvent() {
           })
             .then((res) => {
               if (res.ok) {
-                alert("it worked!")
+                //toaster "event created"
     
                 console.log('RESPONSE', res.json())
                 setRequest({

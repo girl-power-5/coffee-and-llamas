@@ -34,7 +34,16 @@ export default function EventList() {
             ) : (
                 <div>
                     <ul>
-                        {events.data.map((event) => (<Row><li>Meeting with {event.person_Name} on {event.event_DateTime} at {event.event_Time} <Button onClick={onEventClick} value={event._id}>View event details</Button></li></Row>))}
+                        {events.data.map((event) => (<Row><li>
+                          Meeting with: {event.person_Name} Date: {new Date(event.event_DateTime).toDateString()}Time: {new Date(event.event_DateTime).toLocaleTimeString().slice(0,5)}{new Date(event.event_DateTime).toLocaleTimeString().slice(8,11)}
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <Button onClick={onEventClick} value={event._id}>View event details</Button></li></Row>))}
                     </ul>
                 </div>
             )}
