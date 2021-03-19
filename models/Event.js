@@ -32,8 +32,7 @@ const eventSchema = new Schema ({
 		type: String, 
 		unique: false, 
 		required: false 
-	},
-	alert_history: [alertSchema]
+	}
 })
 
 module.exports = eventSchema;

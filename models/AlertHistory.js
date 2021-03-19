@@ -7,7 +7,16 @@ const alertSchema = new Schema ({
 		unique: false, 
 		required: false 
 	}
-    
-})
+});
 
-module.exports = alertSchema;
+const alertHistorySchema = new Schema ({
+	event_id: {
+		type: String, 
+		unique: false, 
+		required: false 
+	},
+	alert_list: [alertSchema]
+});
+
+const AlertHistory = mongoose.model("AlertHistory", alertHistorySchema);
+module.exports = AlertHistory;

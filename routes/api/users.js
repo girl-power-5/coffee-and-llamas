@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Controller = require("../../controllers/Controller");
 
-// Matches with "/api/user/newregistration"
+// Matches with "/api/users/newregistration"
 router.route("/newregistration")
   .post(Controller.finishRegistration)
 
@@ -10,6 +10,9 @@ router.route("/newevent")
 
 router.route("/squad")
   .post(Controller.addMember)
+
+router.route("/alerts/:eventId")
+  .post(Controller.saveAlert)
 
 router.route("/:id")
   .get(Controller.getUserData)
@@ -22,5 +25,8 @@ router.route("/events/:id")
 
 router.route("/eventDetails/:userId/:eventId")
   .get(Controller.getEventDetails)
+
+router.route("/eventDetails/:eventId")
+  .get(Controller.getAlertHistory)
 
 module.exports = router;
