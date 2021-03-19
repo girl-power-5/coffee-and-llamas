@@ -51,16 +51,34 @@ app.post('/api/messages', (req, res) => {
 app.use('/user', passportRoutes);
 app.use(routes);
 
-app.use(
-	session({
-		secret: 'sweetsesh',
-		resave: false,
-		saveUninitialized: false,
-		store: MongoStore.create({
-      mongoUrl: 'mongodb://localhost/dbimok'    })
-	})
-)
+// app.use(
+// 	session({
+// 		secret: 'sweetsesh',
+// 		resave: false,
+// 		saveUninitialized: false,
+// 		store: MongoStore.create({
+//       mongoUrl: "mongodb+srv://giggles5:llamas7@cluster0.gghxi.mongodb.net/dbimok?retryWrites=true&w=majority" 
+//     })
+// 	})
+// )
 
+const clientP = mongoose.connect(
+  process.env.MONGODB_URI,
+  { useNewUrlParser: true, useUnifiedTopology: true }
+).then(m => m.connection.getClient())
+
+app.use(session({
+  secret: 'foo',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    clientPromise: clientP,
+    dbName: "dbimok",
+    stringify: false,
+    autoRemove: 'interval',
+    autoRemoveInterval: 1
+  })
+}));
 
 
 // Connect to the Mongo DB
