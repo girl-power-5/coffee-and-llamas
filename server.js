@@ -57,46 +57,72 @@ app.use(routes);
 // 		resave: false,
 // 		saveUninitialized: false,
 // 		store: MongoStore.create({
-//       mongoUrl: "mongodb+srv://giggles5:llamas7@cluster0.gghxi.mongodb.net/dbimok?retryWrites=true&w=majority" 
+//       mongoUrl: "" 
 //     })
 // 	})
 // )
 
-const clientP = mongoose.connect(
-  process.env.MONGODB_URI,
-  { useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    useCreateIndex: true, 
-    useFindAndModify: false }
-).then(m => m.connection.getClient())
+// const clientP = mongoose.connect(
+//   process.env.MONGODB_URI,
+//   { useNewUrlParser: true, 
+//     useUnifiedTopology: true,
+//     useCreateIndex: true, 
+//     useFindAndModify: false }
+// ).then(m => m.connection.getClient())
 
-app.use(session({
-  secret: 'foo',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    clientPromise: clientP,
-    dbName: "dbimok",
-    stringify: false,
-    autoRemove: 'interval',
-    autoRemoveInterval: 1, 
-    cookie: {
-      sameSite: false,
-      secure: false,
-      httpOnly: true
-  }
-  })
-}));
+// app.use(session({
+//   secret: 'foo',
+//   resave: false,
+//   saveUninitialized: false,
+//   store: MongoStore.create({
+//     clientPromise: clientP,
+//     dbName: "dbimok",
+//     stringify: false,
+//     autoRemove: 'interval',
+//     autoRemoveInterval: 1, 
+//     cookie: {
+//       sameSite: false,
+//       secure: false,
+//       httpOnly: true
+//   }
+//   })
+//  }));
 
 
 // Connect to the Mongo DB
 if (process.env.NODE_ENV === "production") {
-mongoose.connect(process.env.MONGODB_URI),
-{   useNewUrlParser: true, 
-    useUnifiedTopology: true, 
-    useCreateIndex: true, 
-    useFindAndModify: false
-};
+  const clientP = mongoose.connect(
+    process.env.MONGODB_URI,
+    { useNewUrlParser: true, 
+      useUnifiedTopology: true,
+      useCreateIndex: true, 
+      useFindAndModify: false }
+  ).then(m => m.connection.getClient())
+  
+  app.use(session({
+    secret: 'foo',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      clientPromise: clientP,
+      dbName: "dbimok",
+      stringify: false,
+      autoRemove: 'interval',
+      autoRemoveInterval: 1, 
+      cookie: {
+        sameSite: false,
+        secure: false,
+        httpOnly: true
+    }
+    })
+  }));
+  
+// mongoose.connect(process.env.MONGODB_URI),
+// {   useNewUrlParser: true, 
+//     useUnifiedTopology: true, 
+//     useCreateIndex: true, 
+//     useFindAndModify: false
+// };
 } else {
     mongoose.connect("mongodb://localhost/dbimok"),
     {
