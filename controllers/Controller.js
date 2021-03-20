@@ -78,7 +78,6 @@ module.exports = {
     .catch(err => res.status(422).json(err));
   },
   saveAlert: function(req, res) {
-    console.log(req.body.alertType)
     const alertData = {
       alert_name: req.body.alertType
     }
@@ -86,16 +85,19 @@ module.exports = {
     db.AlertHistory
       .findOneAndUpdate({event_id: req.params.eventId},
         {$push: {alert_list: alertData}},
-        {upsert: true, new: true, useFindAndModify:false})
+        {upsert: true, new: true, useFindAndModify: false})
         .then(dbAlert => res.json(dbAlert))
       .catch(err => res.status(422).json(err))
     }, 
     getAlertHistory: function(req, res) {
       console.log('EVENTID', req.params.eventId)
       db.AlertHistory
-        .find({}, {event_id: req.params.eventId})
+        .find({event_id: req.params.eventId})
         .populate('alert_list')
-        .then(dbAlert => res.json(dbAlert))
+        .then(dbAlert => {
+          console.log('ALERT!!!', dbAlert)
+          res.json(dbAlert)
+        })
         .catch(err => res.status(422).json(err))
     }
 }
