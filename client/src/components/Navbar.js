@@ -23,7 +23,7 @@ export default function AppNavbar(props) {
         {props.isLoggedIn ? (
           <section className="navbar-section">
             <Navbar bg="light" expand="lg">
-              <Navbar.Brand>IMOK</Navbar.Brand>
+            <Navbar.Brand><img src="https://res.cloudinary.com/amber-chiodini/image/upload/c_scale,w_250/v1616261599/imok_logo_jrmkml.png"/></Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -71,7 +71,7 @@ export default function AppNavbar(props) {
         ) : (
           <section className="navbar-section">
             <Navbar bg="light" expand="lg">
-              <Navbar.Brand>IMOK</Navbar.Brand>
+              <Navbar.Brand><img src="https://res.cloudinary.com/amber-chiodini/image/upload/c_scale,w_250/v1616261599/imok_logo_jrmkml.png"/></Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
