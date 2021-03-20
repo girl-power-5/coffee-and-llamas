@@ -27,8 +27,8 @@ export default function Login(props) {
             <div className="col-1 col-ml-auto">
               <label className="form-label" htmlFor="username">Username: </label>
             </div>
-            <div className="col-3 col-mr-auto">
-                <input className="form-input"
+            <div className="col-sm-10 col-lg-3 col-mr-auto">
+                <input className="form-control"
                   type="text"
                   name="username"
                   placeholder="Username"
@@ -40,8 +40,8 @@ export default function Login(props) {
               <div className="col-1 col-ml-auto">
                 <label className="form-label" htmlFor="password">Password: </label>
               </div>
-              <div className="col-3 col-mr-auto">
-                <input className="form-input"
+              <div className="col-sm-10 col-lg-3 col-mr-auto">
+                <input className="form-control"
                   placeholder="password"
                   type="password"
                   name="password"
@@ -49,9 +49,9 @@ export default function Login(props) {
                 />
               </div>
             </div>
-            <div className="form-group ">
+            <div className="form-group">
               <div className="col-7"></div>
-              <button className="btn btn-primary col-1 col-mr-auto" onClick={handleSubmit} type="submit">Login</button>
+              <button className="btn btn-primary col-mr-auto" onClick={handleSubmit} type="submit">Login</button>
             </div>
           </form>
       </React.Fragment>
