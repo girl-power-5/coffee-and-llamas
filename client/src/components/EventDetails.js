@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../utils/API';
 import { UserContext } from '../UserContext';
@@ -13,7 +13,7 @@ export default function EventDetails() {
     isLoading: true,
     data: null,
   })
-
+  
   const [squadNumbers, setSquadNumbers] = useState([])
 
   const [request, setRequest] = useState({
@@ -26,16 +26,10 @@ export default function EventDetails() {
     error: false,
   })
 
-  const [alertHistory, setAlertHistory] = useState([])
-
-  const [alertList, setAlertList] = useState([])
-
-  const sendAlert = (e) => {
+  const sendAlert = ((e) => {
     e.preventDefault();
-    console.log(e.target.innerHtml)
 
-    squadNumbers.forEach((member) => {
-      console.log("!!!!!", e.target.reactid)
+    squadNumbers.forEach((member, index) => {
       const currentState = request.message;
       const { value } = e.target;
       currentState.to = member.member_phone_number;
@@ -47,7 +41,6 @@ export default function EventDetails() {
         ...request,
         submitting: true
       });
-      console.log('REQUEST TWILIO', request)
       fetch('/api/messages', {
         method: 'POST',
         headers: {
@@ -57,11 +50,11 @@ export default function EventDetails() {
       })
         .then((res) => {
           if (res.ok) {
-            console.log('FRONTEND RES', res.json())
-            // I think this is where we will make a post request to save the alerts?? then we will need to do a useeffect on page load to query the alerts
-            API.saveAlert(eventId, request.message)
+            if(index === squadNumbers.length - 1) {
+              API.saveAlert(eventId, request.message)
               .then((res) => console.log('ALERT', res))
               .catch((err) => console.log(err))
+            }
 
             setRequest({
               error: false,
@@ -69,7 +62,7 @@ export default function EventDetails() {
               message: {
                 to: '',
                 body: '',
-                name: ''
+                alertType: null
               },
             });
           } else {
@@ -81,10 +74,9 @@ export default function EventDetails() {
         })
         .catch(error => {
           console.error("Error fetching data: ", error);
-        });
+        })
     })
-
-  }
+  })
 
   useEffect(() => {
     API.getEventDetails(userContext.id, eventId)
@@ -101,16 +93,7 @@ export default function EventDetails() {
       .then(res => setSquadNumbers(res.data))
       .catch(err => console.log(err))
   }, [])
-
-  useEffect(() => {
-    API.getAlertHistory(eventId)
-      .then(res => {
-        console.log(res.data[0].alert_list)
-        setAlertHistory(res.data[0].alert_list)
-      })
-      .catch(err => console.log(err))
-  }, [])
-
+  
   return (
     <div>
       {eventDetails.isLoading ? (
@@ -178,7 +161,9 @@ export default function EventDetails() {
                 allowfullscreen
                 src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAXVPS3WbHTDTRT1GM8NGIuDjbKSfS2sU4&q=place_id:${eventDetails.data.event_Location}`}>
               </iframe>
-                <AlertHistory eventId={eventId} />
+                <AlertHistory 
+                  eventId={eventId}
+                />
             </div>
           )
             : (
