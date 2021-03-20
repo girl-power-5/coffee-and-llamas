@@ -53,3 +53,14 @@
   color: white;
 } */
 
+ 
+.text-secondary:hover {
+  background-color: mediumorchid !important;
+  text-decoration: none !important;
+}
+
+.text-secondary {
+  color: black !important;
+  font-weight: bolder;
+  text-decoration: none !important;
+}
