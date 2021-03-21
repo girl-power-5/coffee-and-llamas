@@ -7,12 +7,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import Alert from 'react-bootstrap/Alert';
+
 
 export default function NewEvent() {
   const userContext = useContext(UserContext);
   const historyContext = useContext(HistoryContext);
   const [value, setValue] = useState(null);
-
+  const [show, setShow] = useState(false);
+  const [alert, setAlert] = useState();
   let history = useHistory();
   let location = useLocation();
 
@@ -23,7 +26,8 @@ export default function NewEvent() {
   const [newEvent, setNewEvent] = useState({
     id: userContext.id,
     datetime: new Date(),
-    eventLocation: null
+    eventLocation: null,
+    personName: null
   })
   const [request, setRequest] = useState({
     message: {
@@ -48,6 +52,13 @@ export default function NewEvent() {
 
   const onEventSubmit = (evt) => {
     evt.preventDefault();
+
+    if (!newEvent.eventLocation && !newEvent.personName) {
+      setShow(true)
+      setAlert("Please be sure to enter who you're meeting with, event date/time, & event location.")
+      return;
+    }
+
     API.createNewEvent({ ...newEvent, eventLocation: value.value.place_id })
       .then(res => {
         const parsedRes = JSON.parse(res.config.data)
@@ -73,9 +84,6 @@ export default function NewEvent() {
           })
             .then((res) => {
               if (res.ok) {
-                //toaster "event created"
-    
-                console.log('RESPONSE', res.json())
                 setRequest({
                   error: false,
                   submitting: false,
@@ -118,6 +126,15 @@ export default function NewEvent() {
 
   return (
     <form>
+      {show ? (
+        <div class="col-lg-5 mt-2">
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          {alert}
+        </Alert>
+      </div>
+      ) : (
+        <></>
+      )}
       <div class="form-group">
         <label class="col-form-label" for="inputDefault">Meeting with:</label>
         <input type="text" class="form-control" placeholder="Name" name="personName" value={newEvent.personName} onChange={handleInputChange} />
@@ -135,6 +152,8 @@ export default function NewEvent() {
         />
       </MuiPickersUtilsProvider>
 
+      <br/>
+      <label class="col-form-label" for="inputDefault">Start typing to enter a meeting location:</label>
       <GooglePlacesAutocomplete
         placeholder="Enter an address"
         inputStyle={{
@@ -159,7 +178,7 @@ export default function NewEvent() {
           onChange: setValue,
         }}
       />
-      <button type="submit" class="btn btn-primary" onClick={onEventSubmit}>Submit</button>
+      <button type="submit" class="btn btn-primary mt-3" onClick={onEventSubmit}>Submit</button>
     </form>
   )
 }

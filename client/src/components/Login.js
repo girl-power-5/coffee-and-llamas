@@ -3,6 +3,7 @@ import {
   Redirect, 
   useHistory 
   } from 'react-router-dom';
+  import { UserContext } from '../UserContext';
 
 export default function Login(props) {
   let history = useHistory();
@@ -21,17 +22,17 @@ export default function Login(props) {
   } else {
       return (
         <React.Fragment>
+          <div style={{margin: "3em 2em"}}>
           <h4>Login</h4>
           <form className="form-horizontal">
             <div className="form-group">
             <div className="col-1 col-ml-auto">
-              <label className="form-label" htmlFor="username">Username: </label>
+              <label className="form-label" htmlFor="username">Email: </label>
             </div>
             <div className="col-sm-10 col-lg-3 col-mr-auto">
                 <input className="form-control"
                   type="text"
                   name="username"
-                  placeholder="Username"
                   onChange={handleChange}
                 />
               </div>
@@ -42,7 +43,6 @@ export default function Login(props) {
               </div>
               <div className="col-sm-10 col-lg-3 col-mr-auto">
                 <input className="form-control"
-                  placeholder="password"
                   type="password"
                   name="password"
                   onChange={handleChange}
@@ -54,6 +54,7 @@ export default function Login(props) {
               <button className="btn btn-primary col-mr-auto" onClick={handleSubmit} type="submit">Login</button>
             </div>
           </form>
+          </div>
       </React.Fragment>
     )
   }
