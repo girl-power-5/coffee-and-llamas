@@ -9,6 +9,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Col from 'react-bootstrap/Col';
 import Tab from 'react-bootstrap/Tab';
 import NewEvent from './NewEvent';
+import About from "./About";
 
 export default function AppNavbar(props) {
   let history = useHistory();
@@ -48,6 +49,11 @@ export default function AppNavbar(props) {
                     </Link>
                   </Nav.Link>
                   <Nav.Link>
+                    <Link to="/about" className="btn btn-link text-secondary">
+                      <span className="text-secondary">About</span>
+                    </Link>
+                  </Nav.Link>
+                  <Nav.Link>
                     <Link to="#" className="btn btn-link text-secondary" onClick={handleSubmit}>
                       <span className="text-secondary">Logout</span>
                     </Link>
@@ -64,6 +70,9 @@ export default function AppNavbar(props) {
                 </Route>
                 <Route path="/addmember">
                   <AddMember />
+                </Route>
+                <Route path="/about">
+                  <About />
                 </Route>
               </Route>
  
