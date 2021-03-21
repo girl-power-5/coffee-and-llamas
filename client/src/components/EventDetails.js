@@ -4,6 +4,8 @@ import API from '../utils/API';
 import { UserContext } from '../UserContext';
 import { Form, Col, Row, Button, ListGroup } from 'react-bootstrap';
 import AlertHistory from './AlertHistory';
+import Container from 'react-bootstrap/Container'
+import '../../src/App.css';
 
 export default function EventDetails() {
   const userContext = useContext(UserContext);
@@ -96,67 +98,91 @@ export default function EventDetails() {
   
   return (
     <div>
+    <Container fluid>
+      <Row md={10}>
       {eventDetails.isLoading ? (
         <h1>Loading...</h1>
       ) : (
         <div>
           {userContext.isLoggedIn ? (
-            <div>
-              <Button
+            <div style ={{display:"flex"}}>
+            <div class="buttons">
+              <Col xs={12} md={8}>
+              <br />
+              <Button variant="btn btn-outline-success mr-2" size="lg" block
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: Made it to the meeting spot`}`}
                 onClick={sendAlert}
                 data-reactid="Arrived"
               >
                 Arrived
               </Button>
-              <Button
+              <br />
+
+              <Button variant="btn btn-outline-info mr-2" size="lg" block
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: Bored but imok`}`}
                 onClick={sendAlert}
                 name="Bored but imok"
               >
                 Bored but imok
               </Button>
-              <Button
+              <br />
+
+              <Button variant="btn btn-outline-success mr-2" size="lg" block 
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: Having a good time, signing off!`}`}
                 onClick={sendAlert}
                 name="Having a good time"
               >
                 Having a good time
               </Button>
-              <Button
+              <br />
+              
+              <Button variant="btn btn-outline-warning mr-2" size="lg" block  
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: Feeling uncomfortable, be on standby`}`}
                 onClick={sendAlert}
                 name="Be on standby"
               >
                 Be on standby
               </Button>
-              <Button
+              <br />
+
+              <Button variant="btn btn-danger btn-lg mr-2" size="lg" block
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: SOS feel unsafe`}`}
                 onClick={sendAlert}
                 name="SOS"
               >
                 SOS
               </Button>
-              <Button
+              <br />
+
+              <Button variant="btn btn-outline-success mr-2" size="lg" block
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: "Made it home/somewhere, am safe for the night`}`}
                 onClick={sendAlert}
               >
                 Safe for the night
               </Button>
-              <Button
+              <br />
+
+              <Button variant="btn btn-outline-info mr-2" size="lg" block
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: "Morning after, things are still good`}`}
                 onClick={sendAlert}
                 name="Morning after..."
               >
                 Morning after...
               </Button>
+              <br />
+              </Col>
+              </div>
+
+              <div class="eventDetails" style={{display:"flex"}}>
+              <Col>
+              <br />
               <h3>Meeting with: {eventDetails.data.person_Name}</h3>
               <h3>Date: {new Date(eventDetails.data.event_DateTime).toDateString()}</h3>
               <h3>Time: {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(0, 4)} {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(8, 11)}</h3>
               <iframe
                 title="eventLocation"
-                width="600"
-                height="450"
+                width="100%"
+                height="80%"
                 loading="lazy"
                 allowfullscreen
                 src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAXVPS3WbHTDTRT1GM8NGIuDjbKSfS2sU4&q=place_id:${eventDetails.data.event_Location}`}>
@@ -164,10 +190,14 @@ export default function EventDetails() {
                 <AlertHistory 
                   eventId={eventId}
                 />
+              </Col>
+              </div>
+
             </div>
           )
             : (
               <div>
+                {/* 
                 <h3>Meeting with: {eventDetails.data.person_Name}</h3>
                 <h3>When: {eventDetails.data.event_DateTime}</h3>
                 <iframe
@@ -178,10 +208,13 @@ export default function EventDetails() {
                   allowfullscreen
                   src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAXVPS3WbHTDTRT1GM8NGIuDjbKSfS2sU4&q=place_id:${eventDetails.data.event_Location}`}>
                 </iframe>
+                 */}
               </div>
-            )}
+            )} 
         </div>
       )}
+     </Row> 
+    </Container>    
     </div>
   )
 

@@ -26,7 +26,7 @@ export default function Register(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (re.test(String(userContext.username).toLowerCase()) === false) {
+        if (re.test(String(userContext.username).toLowerCase().trim()) === false) {
           setShow(true)
           setAlert("Please enter a valid email.")
           return;
