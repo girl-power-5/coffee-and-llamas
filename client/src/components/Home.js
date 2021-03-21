@@ -29,24 +29,26 @@ export default function Home({ userStatus }) {
             </Row>
 
             <Row>
-              <Col sm={5}>
+              <Col sm={12}>
                 <SafetySquad />
               </Col>
             </Row>
             <Row>
-              <Col sm={5}>
-                <EventList />
+              <Col >
+                 <EventList/> 
+               
               </Col>
             </Row>
           </Container>
           <Route path="/safetysquad">
               <SafetySquad />
             </Route>
-            <Footer />
+            
         </div>
       ) : (
         <p>Error: this page is for logged in users only!</p>
       )}
+      <Footer />
     </React.Fragment>
   )
 }
