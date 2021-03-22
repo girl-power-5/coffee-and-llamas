@@ -135,9 +135,6 @@ Each button will send an SMS message to each member of the IMOK Safety Squad (ma
 
 <img width="367" alt="Screen Shot 2021-03-21 at 9 11 57 PM" src="https://user-images.githubusercontent.com/67554339/111931821-18230400-8a8a-11eb-9aed-fff9419ce683.png">
 
-
-
-
 ## License:
 MIT
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
