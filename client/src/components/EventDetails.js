@@ -8,10 +8,13 @@ import Container from 'react-bootstrap/Container'
 import '../../src/App.css';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableRow';
+import Alert from 'react-bootstrap/Alert';
 
 export default function EventDetails() {
   const userContext = useContext(UserContext);
   let { eventId } = useParams();
+  const [show, setShow] = useState(false);
+  const [alert, setAlert] = useState();
 
   const [eventDetails, setEventDetails] = useState({
     isLoading: true,
@@ -58,6 +61,9 @@ export default function EventDetails() {
               API.saveAlert(eventId, request.message)
                 .then((res) => console.log('ALERT', res))
                 .catch((err) => console.log(err))
+
+                setShow(true)
+                setAlert("The following message was sent to your safety squad: " + request.message.body)
             }
 
             setRequest({
@@ -101,6 +107,15 @@ export default function EventDetails() {
   return (
     <div>
       <Container fluid>
+      {show ? (      
+        <div class="col-lg-5 mt-2">
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          {alert}
+        </Alert>
+      </div>
+      ) : (
+        <></>
+      )}
         <AlertHistory
           eventId={eventId}
         />
@@ -109,8 +124,7 @@ export default function EventDetails() {
         ) : (
           <div>
             {userContext.isLoggedIn ? (
-              <div style={{ display: "flex", flexDirection: "wrap" }}>
-                              <Row>
+              <div style={{display:"flex", flexDirection:"row", flexWrap: "wrap"}}>
 
                 <Col lg={4} sm={12} xs={12}>
                   <br />
@@ -195,7 +209,6 @@ export default function EventDetails() {
                     src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAXVPS3WbHTDTRT1GM8NGIuDjbKSfS2sU4&q=place_id:${eventDetails.data.event_Location}`}>
                   </iframe>
                 </Col>
-                </Row>
               </div>
               
             )
