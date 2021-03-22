@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './Footer'
 import { 
   Redirect, 
   useHistory 
@@ -54,6 +55,7 @@ export default function Login(props) {
               <button className="btn btn-primary col-mr-auto" onClick={handleSubmit} type="submit">Login</button>
             </div>
           </form>
+          <Footer />
           </div>
       </React.Fragment>
     )

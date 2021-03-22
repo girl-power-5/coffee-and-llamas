@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from '../UserContext';
 import Alert from 'react-bootstrap/Alert';
+import Footer from './Footer'
 
 export default function Register(props) {
   let history = useHistory();
@@ -122,6 +123,7 @@ export default function Register(props) {
      
     </form>
   </div>
+  <Footer />
   </div>
   );
 }
