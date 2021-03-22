@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Route} from 'react-router-dom'
 import Header from './Header'
-import Footer from './Footer'
 import SafetySquad from './SafetySquad'
 import EventList from './EventList'
 import Container from 'react-bootstrap/Container'
@@ -41,7 +40,6 @@ export default function Home({ userStatus }) {
       ) : (
         <p>Error: this page is for logged in users only!</p>
       )}
-      <Footer />
     </React.Fragment>
   )
 }
