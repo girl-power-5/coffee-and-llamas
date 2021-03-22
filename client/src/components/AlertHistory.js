@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import API from '../utils/API';
 import { Col, ListGroup, Accordion, Card, Button } from 'react-bootstrap';
 
-export default function AlertHistory({ eventId }) {
+export default function AlertHistory({ eventId, alert }) {
 
   const [alertHistory, setAlertHistory] = useState({
     isLoading: true,
@@ -18,7 +18,7 @@ export default function AlertHistory({ eventId }) {
         })
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [alert])
 
   const alertHTML = alertHistory.alertList.map((alert) => (
     <li>{alert.alert_name}</li>
