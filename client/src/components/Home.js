@@ -16,24 +16,17 @@ export default function Home({ userStatus }) {
       {isLoggedIn ? (
         <div>
           <Container>
-            <Row>
+            <Row style={{paddingTop: "2em"}}>
               <Col sm={12}>
                 <Header firstName={firstName} />
               </Col>
             </Row>
-
-            <Row>
-              <Col sm={5}>
-                
-              </Col>
-            </Row>
-
-            <Row>
+            <Row style={{paddingTop: "2em"}}>
               <Col sm={12}>
                 <SafetySquad />
               </Col>
             </Row>
-            <Row>
+            <Row style={{paddingTop: "2em"}}>
               <Col >
                  <EventList/> 
                
