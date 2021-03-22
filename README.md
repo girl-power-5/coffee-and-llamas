@@ -110,23 +110,31 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ## Usage 
 User is presented with a homescreen when they navigate to  https://imok-squad.herokuapp.com/
 
-[insert login screenshot of landing page]
+
 
 User can Login or create a new account:
-[insert screenshot of Register page]
+![Screen Shot 2021-03-21 at 9 17 41 PM](https://user-images.githubusercontent.com/67554339/111932196-ee1e1180-8a8a-11eb-8092-5dca657d7871.png)
+
 
 Once logged in the user is presented with a menu and their events and squad information:
-[insert screenshot of user Home page]
+
+![Screen Shot 2021-03-21 at 9 02 55 PM](https://user-images.githubusercontent.com/67554339/111931474-47854100-8a89-11eb-927f-45d5876f2f99.png)
+
 
 The user can create a new event
 
-[insert screenshot of create event page]
+![Screen Shot 2021-03-21 at 9 07 56 PM](https://user-images.githubusercontent.com/67554339/111931634-97640800-8a89-11eb-8c11-cbaccac800ad.png)
 
 The day of an event is displayed along with alert buttons: 
-[insert screen shot of alert buttons]
+![Screen Shot 2021-03-21 at 9 03 28 PM](https://user-images.githubusercontent.com/67554339/111931667-b2367c80-8a89-11eb-8713-7dfe7e7b2594.png)
 
-Each button will send an SMS message to each member of the IMOK Safety Squad (max group of the squad is 5)
-[insert screenshot of an SMS message  ]
+When an alert message is selected the user will receive a message confirming the alert has been sent:
+![Screen Shot 2021-03-21 at 9 04 32 PM](https://user-images.githubusercontent.com/67554339/111931964-61735380-8a8a-11eb-9d31-47f4070b9200.png)
+
+Each button will send an SMS message to each member of the IMOK Safety Squad (max group of the squad is 5):
+
+<img width="367" alt="Screen Shot 2021-03-21 at 9 11 57 PM" src="https://user-images.githubusercontent.com/67554339/111931821-18230400-8a8a-11eb-9aed-fff9419ce683.png">
+
 
 
 
