@@ -29,12 +29,12 @@ export default function RegistrationForm(props) {
       return;
     }
 
-    const re = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
-        if (re.test(String(newProfile.phoneNumber).toLowerCase()) === false || re.test(String(newProfile.safetyNumber).toLowerCase()) === false) {
-          setShow(true)
-          setAlert("Please use a valid US phone number.")
-          return;
-        }
+    // const re = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+    //     if (re.test(String(newProfile.phoneNumber).toLowerCase()) === false || re.test(String(newProfile.safetyNumber).toLowerCase()) === false) {
+    //       setShow(true)
+    //       setAlert("Please use a valid US phone number.")
+    //       return;
+    //     }
 
     props.onRegistrationSubmit(newProfile, history);
   }

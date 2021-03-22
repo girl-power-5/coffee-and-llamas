@@ -6,6 +6,8 @@ import { Form, Col, Row, Button, ListGroup } from 'react-bootstrap';
 import AlertHistory from './AlertHistory';
 import Container from 'react-bootstrap/Container'
 import '../../src/App.css';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableRow';
 
 export default function EventDetails() {
   const userContext = useContext(UserContext);
@@ -99,7 +101,7 @@ export default function EventDetails() {
   return (
     <div>
     <Container fluid>
-      <Row md={10}>
+      <Row lg={10}>
       {eventDetails.isLoading ? (
         <h1>Loading...</h1>
       ) : (
@@ -107,14 +109,14 @@ export default function EventDetails() {
           {userContext.isLoggedIn ? (
             <div style ={{display:"flex"}}>
             <div class="buttons">
-              <Col xs={12} md={8}>
+              <Col>
               <br />
               <Button variant="btn btn-outline-success mr-2" size="lg" block
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: Made it to the meeting spot`}`}
                 onClick={sendAlert}
                 data-reactid="Arrived"
               >
-                Arrived
+              Arrived
               </Button>
               <br />
 
@@ -123,7 +125,7 @@ export default function EventDetails() {
                 onClick={sendAlert}
                 name="Bored but imok"
               >
-                Bored but imok
+              Bored
               </Button>
               <br />
 
@@ -132,18 +134,20 @@ export default function EventDetails() {
                 onClick={sendAlert}
                 name="Having a good time"
               >
-                Having a good time
+              Good
               </Button>
               <br />
+              
               
               <Button variant="btn btn-outline-warning mr-2" size="lg" block  
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: Feeling uncomfortable, be on standby`}`}
                 onClick={sendAlert}
                 name="Be on standby"
               >
-                Be on standby
+              Standby
               </Button>
               <br />
+           
 
               <Button variant="btn btn-danger btn-lg mr-2" size="lg" block
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: SOS feel unsafe`}`}
@@ -158,7 +162,7 @@ export default function EventDetails() {
                 value={`${`Msg from IMOK squad member ${userContext.firstName}: "Made it home/somewhere, am safe for the night`}`}
                 onClick={sendAlert}
               >
-                Safe for the night
+                Safe
               </Button>
               <br />
 
@@ -167,7 +171,7 @@ export default function EventDetails() {
                 onClick={sendAlert}
                 name="Morning after..."
               >
-                Morning after...
+                Morning
               </Button>
               <br />
               </Col>
@@ -176,20 +180,27 @@ export default function EventDetails() {
               <div class="eventDetails" style={{display:"flex"}}>
               <Col>
               <br />
-              <h3>Meeting with: {eventDetails.data.person_Name}</h3>
-              <h3>Date: {new Date(eventDetails.data.event_DateTime).toDateString()}</h3>
-              <h3>Time: {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(0, 4)} {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(8, 11)}</h3>
+
+            <TableRow class="table-light">
+            <TableCell><h4>Meeting with: {eventDetails.data.person_Name}</h4></TableCell>
+            <TableCell ><h4>Date: {new Date(eventDetails.data.event_DateTime).toDateString()}</h4></TableCell>
+            <TableCell ><h4>Time: {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(0, 4)} {new Date(eventDetails.data.event_DateTime).toLocaleTimeString().slice(8,11)}</h4></TableCell>
+            </TableRow>
               <iframe
                 title="eventLocation"
                 width="100%"
                 height="80%"
                 loading="lazy"
-                allowfullscreen
                 src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAXVPS3WbHTDTRT1GM8NGIuDjbKSfS2sU4&q=place_id:${eventDetails.data.event_Location}`}>
               </iframe>
+                
                 <AlertHistory 
                   eventId={eventId}
                 />
+
+
+              
+
               </Col>
               </div>
 
