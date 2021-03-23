@@ -148,10 +148,12 @@ THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRI
 
 
 ## Resources and Credits: 
-Project Name of IMOK the genius of Ryan Duncan
+Project Name of IMOK the genius of Ryan Duncan 
+Twilio Consultant Ken Kulinski
 WireFrame done with Whimsical: 
 Project managmement: Notion
 Presentation: Canva 
+All the Llamas for their moral support 
 
 GitHub Repos Reference: 
 Repo to learn how to implement passport: https://github.com/dikuw/mern-passport
