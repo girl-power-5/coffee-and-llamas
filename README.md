@@ -47,11 +47,7 @@ I AM OK! IMOK was created with safety of in mind. Late evening dates, travelling
 
 ## Installation
 
-Clone and/or fork the repo, (see how [here](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/cloning-and-forking-repositories-from-github-desktop)) then install server-side dependencies at the root of the folder and client-side dependencies in the client directory by running the following in your command line:
-
-```bash
-npm --i
-```
+Clone and/or fork the repo, (see how [here](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/cloning-and-forking-repositories-from-github-desktop)) then install server-side dependencies at the root of the folder and client-side dependencies in the client directory by running the following in your command line: `npm i`.
 
 To run local development, you will need to ensure you have MongoDB installed and able to use as your database, as well as Node for the backend. You will also need to create a .env file with the necessary credentials to use the Twilio and Google Maps API (see the .env.example file). You do not need to include the MONGODB_URI unless you are deploying using MongoDB Atlas.
 
@@ -96,7 +92,7 @@ Copyright &copy; 2020 Amber Chiodini, Claudia Alpert, Emily Blair, Jen Doyle, & 
 ## Resources and Credits
 
 - Project Name of IMOK the genius of Ryan Duncan
-- Twilio Consultant Ken Kulinski
+- Thanks to our Twilio consultant, Ken Kulinski
 - [Passport reference](https://github.com/dikuw/mern-passport)
 - [Connect-mongo reference](https://github.com/jdesboeufs/connect-mongo#readme)
 - [Server file set-up reference](https://github.com/antoniojgage/project-setup)
