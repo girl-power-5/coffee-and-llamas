@@ -2,14 +2,15 @@
 
 ## Table of Contents:
 
-1. [Description](#Description)
-2. [Installation](#Installation)
-3. [React](#React)
-4. [Usage](#Usage)
-5. [Licence](#Licence)
-6. [Resources & Credits](#Credits)
-7. [Suggestions](#Suggestions)
-8. [Questions](#Questions)
+1. [Description](#description)
+2. [Technologies](#technologies)
+3. [Installation](#installation)
+4. [Links](#links)
+5. [Usage](#usage)
+6. [License](#license)
+7. [Credits](#credits)
+8. [Suggestions](#suggestions)
+9. [Questions](#questions)
 
 ## Description
 
@@ -85,11 +86,11 @@ Once the above items are completed, you can run the command `node server` at the
 
 <img width="200" alt="Screen Shot 2021-03-21 at 9 11 57 PM" src="https://user-images.githubusercontent.com/67554339/111931821-18230400-8a8a-11eb-9aed-fff9419ce683.png">
 
-## License:
+## License
 
 Copyright &copy; 2020 Amber Chiodini, Claudia Alpert, Emily Blair, Jen Doyle, & Melissa Ward. Licensed under the MIT license.
 
-## Resources and Credits
+## Credits
 
 - Project Name of IMOK the genius of Ryan Duncan
 - Thanks to our Twilio consultant, Ken Kulinski
